@@ -44,6 +44,12 @@ creds_file_path = os.path.join(package_dir, "config", "local", "credentials.yaml
 ## Data base file location
 data_dir_path = os.path.join(package_dir, "data")
 
+## Path to training data
+data_training = os.path.join(data_dir_path, 'train.csv')
+
+## Path to test data
+data_test = os.path.join(data_dir_path, 'test.csv')
+
 
 
 

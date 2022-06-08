@@ -10,6 +10,10 @@ from .config import (
     utc_tz,
     mexico_tz,
 
+    ## Data files paths
+    data_training,
+    data_test,
+
 )
 
 
