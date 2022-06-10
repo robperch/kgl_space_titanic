@@ -137,6 +137,7 @@ titanicsp_data_schema = {
     'Transported': {
         'relevant': True,
         'clean_col_name': 'Transported',
+        'data_type': 'str',
         'predict_label': True,
     },
 
