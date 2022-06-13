@@ -32,7 +32,7 @@ jsonschema==4.6.0
 jupyter-client==7.3.1
 jupyter-core==4.10.0
 jupyter-server==1.17.0
-jupyterlab==3.4.2
+jupyterlab==3.1.0
 jupyterlab-pygments==0.2.2
 jupyterlab-server==2.14.0
 kaggle==1.5.12
@@ -75,6 +75,8 @@ pytz==2022.1
 PyYAML==6.0
 pyzmq==23.1.0
 requests==2.27.1
+scipy==1.8.1
+seaborn==0.11.2
 Send2Trash==1.8.0
 six==1.16.0
 sniffio==1.2.0
