@@ -126,6 +126,14 @@ titanicsp_data_schema = {
         'model_relevant': True,
     },
 
+    'VRDeck': {
+        'relevant': True,
+        'clean_col_name': 'VRDeck',
+        'data_type': 'float',
+        'feature_type': 'numerical',
+        'model_relevant': True,
+    },
+
     'Name': {
         'relevant': True,
         'clean_col_name': 'Name',
