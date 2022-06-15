@@ -8,6 +8,8 @@ Babel==2.10.1
 backcall==0.2.0
 beautifulsoup4==4.11.1
 bleach==5.0.0
+boto3==1.24.10
+botocore==1.27.10
 certifi==2022.5.18.1
 cffi==1.15.0
 charset-normalizer==2.0.12
@@ -27,6 +29,7 @@ ipython==8.4.0
 ipython-genutils==0.2.0
 jedi==0.18.1
 Jinja2==3.1.2
+jmespath==1.0.0
 json5==0.9.8
 jsonschema==4.6.0
 jupyter-client==7.3.1
@@ -75,6 +78,7 @@ pytz==2022.1
 PyYAML==6.0
 pyzmq==23.1.0
 requests==2.27.1
+s3transfer==0.6.0
 scipy==1.8.1
 seaborn==0.11.2
 Send2Trash==1.8.0
