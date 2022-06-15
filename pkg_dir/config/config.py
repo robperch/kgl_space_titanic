@@ -41,8 +41,11 @@ creds_file_path = os.path.join(package_dir, "config", "local", "credentials.yaml
 
 "-------------- Data files base path --------------"
 
+## Dataset name
+dataset_name = 'spaceship-titanic'
+
 ## Data base file location
-data_dir_path = os.path.join(package_dir, 'data', 'spaceship-titanic')
+data_dir_path = os.path.join(package_dir, 'data', dataset_name)
 
 ## Path to training data
 data_training = os.path.join(data_dir_path, 'train.csv')
