@@ -1,4 +1,4 @@
-## PYTHON TEMPLATE FILE
+## MODULE TO EXTRACT DATA FROM SOURCE
 
 
 
@@ -16,6 +16,7 @@
 
 
 "--- Local application imports ---"
+from pkg_dir.config.config import *
 
 
 
@@ -23,11 +24,30 @@
 
 
 "----------------------------------------------------------------------------------------------------------------------"
-############### XXX ####################################################################################
+############### Downloading dataset from Kaggle ########################################################################
 "----------------------------------------------------------------------------------------------------------------------"
 
 
-"--------------- XXX ---------------"
+"--------------- Unitary functions ---------------"
+
+## Downloading data from Kaggle if it's not present in the project's dir
+def download_data_if_none():
+    """
+    Downloading data from Kaggle if it's not present in the project's dir
+
+    :return:
+    """
+
+
+    ## Checking if the data file is in local directory
+    if dataset_name in os.listdir(package_dir + '/data'):
+        print("Dataset already present locally... skipping download...")
+
+    else:
+        print("Dataset not present locally... downloading from source")
+
+
+    return
 
 
 
