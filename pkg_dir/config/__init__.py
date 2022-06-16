@@ -6,13 +6,16 @@ from .config import (
 
     package_dir,
     creds_file_path,
-    data_dir_path,
+    dataset_dir_path,
     utc_tz,
     mexico_tz,
 
-    ## Data files paths
-    data_training,
-    data_test,
+    ## Dataset files paths
+    training_dataset,
+    test_dataset,
+
+    ## Pickles files path
+    pickles_dir_path,
 
 )
 
