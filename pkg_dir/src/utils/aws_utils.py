@@ -1,4 +1,4 @@
-## PYTHON TEMPLATE FILE
+## MODULE WITH AWS UTILS
 
 
 
@@ -13,9 +13,43 @@
 
 
 "--- Third party imports ---"
-
+import boto3
 
 "--- Local application imports ---"
+from pkg_dir.src.utils import read_yaml
+from pkg_dir.config import *
+
+
+
+
+
+"----------------------------------------------------------------------------------------------------------------------"
+############### AWS general functions ##################################################################################
+"----------------------------------------------------------------------------------------------------------------------"
+
+
+"--------------- Unitary functions ---------------"
+
+## Create session from locally stored credentials
+def create_aws_session_from_local_yaml():
+    """
+    Create session from locally stored credentials
+
+    :return aws_ses: (boto3.session.Session) aws session to interact with various aws services
+    """
+
+
+    ## Reading yaml file
+    creds = read_yaml(creds_file_path)
+
+    ## Creating session based on credentials
+    aws_ses = boto3.Session(
+        aws_access_key_id=creds['aws']['aws_access_key_id'],
+        aws_secret_access_key=creds['aws']['aws_secret_access_key'],
+    )
+
+
+    return aws_ses
 
 
 
@@ -23,11 +57,18 @@
 
 
 "----------------------------------------------------------------------------------------------------------------------"
-############### XXX ####################################################################################
+############### S3 functions ###########################################################################################
 "----------------------------------------------------------------------------------------------------------------------"
 
 
-"--------------- XXX ---------------"
+"--------------- Unitary functions ---------------"
+
+##
+
+
+
+
+"--------------- Compounded functions ---------------"
 
 
 

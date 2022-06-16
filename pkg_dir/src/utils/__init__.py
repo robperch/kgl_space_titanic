@@ -28,7 +28,6 @@ from .general_utils import (
 
 )
 
-
 ## Notion utils
 from .notion_utils import (
     notion_api_call,
@@ -51,6 +50,13 @@ from .sql_utils import (
 ## Excel utils
 from .excel_utils import (
     excel_writer,
+)
+
+## AWS utils
+from .aws_utils import (
+
+    create_aws_session_from_local_yaml,
+
 )
 
 
