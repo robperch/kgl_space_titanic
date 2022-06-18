@@ -15,7 +15,6 @@ import zipfile
 "--- Third party imports ---"
 import kaggle
 
-
 "--- Local application imports ---"
 from pkg_dir.config.config import *
 
