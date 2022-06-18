@@ -10,9 +10,10 @@
 
 
 "--- Standard library imports ---"
-
+import zipfile
 
 "--- Third party imports ---"
+import kaggle
 
 
 "--- Local application imports ---"
@@ -40,11 +41,26 @@ def download_data_if_none():
 
 
     ## Checking if the data file is in local directory
-    if dataset_name in os.listdir(package_dir + '/data'):
+    if dataset_name in os.listdir(package_dir + '/data' + '/dataset'):
         print("Dataset already present locally... skipping download...")
 
     else:
         print("Dataset not present locally... downloading from source")
+
+        ## Downloading dataset with kaggle's api
+        kaggle.api.competition_download_files(
+            'spaceship-titanic',
+            path=dataset_dir,
+        )
+
+        ## Unzipping dir
+        zip_file = dataset_dir + '/' + dataset_name + '.zip'
+        dump_dir = os.path.join(dataset_dir, dataset_name)
+
+        os.mkdir(dump_dir)
+
+        with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+            zip_ref.extractall(dump_dir)
 
 
     return

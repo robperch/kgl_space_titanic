@@ -44,14 +44,17 @@ creds_file_path = os.path.join(package_dir, "config", "local", "credentials.yaml
 ## Dataset name
 dataset_name = 'spaceship-titanic'
 
+## Dataset dir
+dataset_dir = os.path.join(package_dir, 'data', 'dataset')
+
 ## Dataset base file location
-dataset_dir_path = os.path.join(package_dir, 'data', 'dataset', dataset_name)
+dataset_files = os.path.join(dataset_dir, dataset_name)
 
 ## Path to training data
-training_dataset = os.path.join(dataset_dir_path, 'train.csv')
+training_dataset = os.path.join(dataset_files, 'train.csv')
 
 ## Path to test data
-test_dataset = os.path.join(dataset_dir_path, 'test.csv')
+test_dataset = os.path.join(dataset_files, 'test.csv')
 
 
 "-------------- Pickles base path --------------"
