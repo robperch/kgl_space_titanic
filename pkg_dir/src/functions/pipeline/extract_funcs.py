@@ -23,7 +23,7 @@ from pkg_dir.config.config import *
 
 
 "----------------------------------------------------------------------------------------------------------------------"
-############### Downloading dataset from Kaggle ########################################################################
+############### Extract general functions ##############################################################################
 "----------------------------------------------------------------------------------------------------------------------"
 
 
@@ -59,6 +59,30 @@ def download_data_if_none():
 
         with zipfile.ZipFile(zip_file, 'r') as zip_ref:
             zip_ref.extractall(dump_dir)
+
+
+    return
+
+
+
+## Saving train and test dataset locally as pickles
+
+
+
+"--------------- Compounded functions ---------------"
+
+
+## Extract pipeline function
+def extract_pipeline_func():
+    """
+    Extract pipeline function
+
+    :return None:
+    """
+
+
+    ## Downloading data from Kaggle if it's not present in the project's dir
+    download_data_if_none()
 
 
     return

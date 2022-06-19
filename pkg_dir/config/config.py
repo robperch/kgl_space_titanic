@@ -63,6 +63,16 @@ test_dataset = os.path.join(dataset_files, 'test.csv')
 pickles_dir_path = os.path.join(package_dir, 'data', 'pickles')
 
 
+## Pipeline pickles location
+
+### Base pipeline pickles dir path
+pipeline_pickles_dir = os.path.join(pickles_dir_path, 'pipeline') + '/'
+
+### Extract pickles
+# pipeline_pkl_extract_dir
+pipeline_pkl_extract_dir = os.path.join(pipeline_pickles_dir, 'extract') + '/'
+
+
 
 
 
