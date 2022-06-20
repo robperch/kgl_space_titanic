@@ -58,7 +58,7 @@ from .aws_utils import (
     create_aws_session_from_local_yaml,
 
     ## S3 utils
-    upload_file,
+    upload_file_to_s3,
 
 )
 

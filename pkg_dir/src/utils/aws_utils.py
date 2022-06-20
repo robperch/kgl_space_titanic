@@ -86,7 +86,7 @@ def create_s3_client():
 
 
 ## Uploading file to s3 bucket
-def upload_file(file_path, bucket, object_name=None):
+def upload_file_to_s3(file_path, bucket, object_name=None):
     """
     Upload a file to an S3 bucket
 
@@ -106,7 +106,7 @@ def upload_file(file_path, bucket, object_name=None):
 
     ## Upload the file
     try:
-        response = s3_client.upload_file(file_path, bucket, object_name)
+        response = s3_client.upload_file_to_s3(file_path, bucket, object_name)
     except ClientError as e:
         logging.error(e)
         print("Error uploading file to AWS bucket")
