@@ -70,8 +70,23 @@ pipeline_pickles_dir = os.path.join(pickles_dir_path, 'pipeline') + '/'
 
 ### Extract pickles
 pipeline_pkl_extract_local_dir = os.path.join(pipeline_pickles_dir, 'extract') + '/'
-# pipeline_pkl_extract_aws_dir = os.path.join(pipeline_pickles_dir, 'extract') + '/'
-pipeline_pkl_extract_name = 'extract_pkl'
+pipeline_pkl_extract_name = 'extract'
+
+
+
+
+
+"----------------------------------------------------------------------------------------------------------------------"
+############################## AWS parameters ##########################################################################
+"----------------------------------------------------------------------------------------------------------------------"
+
+
+## S3 parameters
+
+base_bucket_name = 'titanic-spaceship-aws-bucket'
+
+### Pipeline pickles
+aws_pipeline_pkl_extract = os.path.join(base_bucket_name, 'pipeline_pkls')
 
 
 
@@ -116,17 +131,6 @@ word_translation = {
 ## Relevant time zones
 utc_tz = timezone('UTC')
 mexico_tz = timezone('Mexico/General')
-
-
-
-
-
-"----------------------------------------------------------------------------------------------------------------------"
-############################## AWS parameters ##########################################################################
-"----------------------------------------------------------------------------------------------------------------------"
-
-
-##
 
 
 

@@ -19,7 +19,12 @@ import pandas as pd
 
 "--- Local application imports ---"
 from pkg_dir.config.config import *
-from pkg_dir.src.utils import create_directory_if_nonexistent
+from pkg_dir.src.utils import (
+
+    create_directory_if_nonexistent,
+    upload_file_to_s3,
+
+)
 
 
 
@@ -75,7 +80,7 @@ def save_extract_local_df_pkl(local_pkl_dir_path, dataset_files):
 
     :param local_pkl_dir_path: (string) path to dir where the extract pickles will be saved locally
     :param dataset_files: (string) local dir where the dataset files are stored
-    :return:
+    :return None:
     """
 
 
@@ -101,7 +106,28 @@ def save_extract_local_df_pkl(local_pkl_dir_path, dataset_files):
 
 
 ## Saving local extract pickles in AWS S3
-def save_extract_pkl_s3():
+def save_extract_pkl_s3(local_pkl_dir_path, s3_pkl_dir_path):
+    """
+    Saving local extract pickles in AWS S3
+
+    :param local_pkl_dir_path: (string) path to dir where the extract pickles will be saved locally
+    :param s3_pkl_dir_path: (string) path inside the bucket where the pickle will be stored
+    :return None:
+    """
+
+
+    ## Iterating over every pickle to store it in s3
+    for pkl in os.listdir(local_pkl_dir_path):
+
+        ## Function parameters
+        file_path = os.path.join(local_pkl_dir_path, pkl)
+        object_name = os.path.join(s3_pkl_dir_path, pkl)
+
+        ## Function execution
+        upload_file_to_s3(file_path, base_bucket_name, object_name)
+
+
+    return
 
 
 
@@ -124,6 +150,9 @@ def extract_pipeline_func():
 
     ## Saving locally train and test dataset as df-pickle
     save_extract_local_df_pkl(pipeline_pkl_extract_local_dir, dataset_files)
+
+    ## Saving local extract pickles in AWS S3
+    save_extract_pkl_s3(pipeline_pkl_extract_local_dir, aws_pipeline_pkl_extract)
 
 
     return
