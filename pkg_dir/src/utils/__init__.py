@@ -53,11 +53,14 @@ from .excel_utils import (
 )
 
 ## AWS utils
-# from .aws_utils import (
-#
-#     create_aws_session_from_local_yaml,
-#
-# )
+from .aws_utils import (
+
+    create_aws_session_from_local_yaml,
+
+    ## S3 utils
+    upload_file,
+
+)
 
 
 
