@@ -73,6 +73,8 @@ def save_extract_local_df_pkl(local_pkl_dir_path, dataset_files):
     """
     Saving locally train and test dataset as df-pickle
 
+    :param local_pkl_dir_path: (string) path to dir where the extract pickles will be saved locally
+    :param dataset_files: (string) local dir where the dataset files are stored
     :return:
     """
 
@@ -95,6 +97,11 @@ def save_extract_local_df_pkl(local_pkl_dir_path, dataset_files):
 
 
     return
+
+
+
+## Saving local extract pickles in AWS S3
+def save_extract_pkl_s3():
 
 
 
