@@ -70,7 +70,7 @@ def create_s3_client():
     """
     Setting up s3 client
 
-    :return s3_client:
+    :return s3_client: (botocore.client.s3) boto3 client to interact with s3
     """
 
 
@@ -119,6 +119,52 @@ def upload_file_to_s3(file_path, bucket, object_name=None):
 
 
     return True
+
+
+
+## List only the objects in a bucket path based on a defined key
+def list_objects_in_bucket_key(bucket_name, bucket_key):
+    """
+    List only the objects in a bucket path based on a defined key
+
+    :param bucket_name: (string) name of the bucket where the objects are
+    :param bucket_key: (string) key to locate the objects in the bucket
+    :return objects_list: (list) list of objects contained in the bucket based on a key
+    """
+
+
+    ## Setting up s3 client
+    s3_client = create_s3_client()
+
+    ## Generating list containing only the object name
+    objects_list = [
+        obj['Key'].split(sep='/')[-1]
+        for obj
+        in s3_client.list_objects_v2(Bucket=bucket_name, Prefix=bucket_key)['Contents']
+    ]
+
+
+    return objects_list
+
+
+
+## Read pickle dataframe stored in s3 as pandas dataframe
+def read_pkl_df_from_s3_as_pandas_df(bucket_name, bucket_key, object_name):
+    """
+    Read pickle dataframe stored in s3 as pandas dataframe
+
+    :param bucket_name: (string) name of the bucket where the objects are
+    :param bucket_key: (string) key to locate the objects in the bucket
+    :param object_name: (string) name of the pickle-df object that will be read as a pandas dataframe
+    :return dfx: (pd.DataFrame) pandas dataframe generated from pickle
+    """
+
+
+    ##
+
+
+    return
+
 
 
 
