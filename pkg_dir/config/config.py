@@ -48,13 +48,13 @@ dataset_name = 'spaceship-titanic'
 dataset_dir = os.path.join(package_dir, 'data', 'dataset')
 
 ## Dataset base file location
-dataset_files = os.path.join(dataset_dir, dataset_name)
+dataset_local_files = os.path.join(dataset_dir, dataset_name)
 
 ## Path to training data
-training_dataset = os.path.join(dataset_files, 'train.csv')
+training_dataset = os.path.join(dataset_local_files, 'train.csv')
 
 ## Path to test data
-test_dataset = os.path.join(dataset_files, 'test.csv')
+test_dataset = os.path.join(dataset_local_files, 'test.csv')
 
 
 "-------------- Pickles base path --------------"
