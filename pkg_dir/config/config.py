@@ -69,8 +69,8 @@ pickles_dir_path = os.path.join(package_dir, 'data', 'pickles')
 pipeline_pickles_dir = os.path.join(pickles_dir_path, 'pipeline') + '/'
 
 ### Extract pickles
-pipeline_pkl_extract_local_dir = os.path.join(pipeline_pickles_dir, 'extract') + '/'
 pipeline_pkl_extract_name = 'extract'
+pipeline_pkl_extract_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_extract_name) + '/'
 
 
 
@@ -86,7 +86,7 @@ pipeline_pkl_extract_name = 'extract'
 base_bucket_name = 'titanic-spaceship-aws-bucket'
 
 ### Pipeline pickles
-aws_pipeline_pkl_extract = os.path.join(base_bucket_name, 'pipeline_pkls')
+aws_pipeline_pkl_extract_key = os.path.join('pipeline_pkls', pipeline_pkl_extract_name)
 
 
 

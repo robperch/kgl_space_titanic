@@ -123,7 +123,7 @@ def save_extract_pkl_s3():
 
         ## Function parameters
         file_path = os.path.join(pipeline_pkl_extract_local_dir, pkl)
-        object_name = os.path.join(aws_pipeline_pkl_extract, pipeline_pkl_extract_name, pkl)
+        object_name = os.path.join(aws_pipeline_pkl_extract_key, pkl)
 
         ## Function execution
         upload_file_to_s3(file_path, base_bucket_name, object_name)

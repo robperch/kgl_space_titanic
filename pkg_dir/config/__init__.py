@@ -23,7 +23,7 @@ from .config import (
 
     ## AWS S3 paths
     base_bucket_name,
-    aws_pipeline_pkl_extract,
+    aws_pipeline_pkl_extract_key,
 
 )
 
