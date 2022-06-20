@@ -11,12 +11,15 @@
 
 "--- Standard library imports ---"
 import zipfile
+import pickle
 
 "--- Third party imports ---"
 import kaggle
+import pandas as pd
 
 "--- Local application imports ---"
 from pkg_dir.config.config import *
+from pkg_dir.src.utils import create_directory_if_nonexistent
 
 
 
@@ -65,7 +68,35 @@ def download_data_if_none():
 
 
 
-## Saving train and test dataset locally as pickles
+## Saving locally train and test dataset as df-pickle
+def save_extract_local_df_pkl(local_pkl_dir_path, dataset_files):
+    """
+    Saving locally train and test dataset as df-pickle
+
+    :return:
+    """
+
+
+    ## Ensuring that the directory where the pickle will be saved exists
+    create_directory_if_nonexistent(local_pkl_dir_path)
+
+    ## Reading csv file as a df
+    for file in os.listdir(dataset_files):
+        dfx = pd.read_csv(os.path.join(dataset_files, file))
+
+        ## Saving df as pickle and storing it locally
+        pickle.dump(
+            dfx,
+            open(
+                os.path.join(local_pkl_dir_path, pipeline_pkl_extract_name) + '_' + file.split(sep='.')[0] + '.pkl',
+                'wb'
+            )
+        )
+
+
+    return
+
+
 
 
 
@@ -83,6 +114,9 @@ def extract_pipeline_func():
 
     ## Downloading data from Kaggle if it's not present in the project's dir
     download_data_if_none()
+
+    ## Saving locally train and test dataset as df-pickle
+    save_extract_local_df_pkl(pipeline_pkl_extract_local_dir, dataset_files)
 
 
     return
