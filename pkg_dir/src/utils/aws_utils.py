@@ -12,6 +12,7 @@
 "--- Standard library imports ---"
 import os
 import logging
+import pickle
 
 "--- Third party imports ---"
 import boto3
@@ -148,22 +149,32 @@ def list_objects_in_bucket_key(bucket_name, bucket_key):
 
 
 
-## Read pickle dataframe stored in s3 as pandas dataframe
-def read_pkl_df_from_s3_as_pandas_df(bucket_name, bucket_key, object_name):
+## Read object stored in s3 directly into a python variable
+def read_s3_obj_to_variable(bucket_name, bucket_key, object_name):
     """
-    Read pickle dataframe stored in s3 as pandas dataframe
+    Read object stored in s3 directly into a python variable
 
     :param bucket_name: (string) name of the bucket where the objects are
     :param bucket_key: (string) key to locate the objects in the bucket
-    :param object_name: (string) name of the pickle-df object that will be read as a pandas dataframe
-    :return dfx: (pd.DataFrame) pandas dataframe generated from pickle
+    :param object_name: (string) name of the object that will be read into a variable
+    :return obj_var: (unknown) object's body stored in variable
     """
 
 
-    ##
+    ## Setting up s3 client
+    s3_client = create_s3_client()
+
+    ## Path to obtain the object from as s3 bucket
+    object_path = os.path.join(bucket_key, object_name)
+
+    ## Get object from s3
+    obj = s3_client.get_object(Bucket=bucket_name, Key=object_path)
+
+    ## Read object
+    obj_var = pickle.loads(obj['Body'].read())
 
 
-    return
+    return obj_var
 
 
 
