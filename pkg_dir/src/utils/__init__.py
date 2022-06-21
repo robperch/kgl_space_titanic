@@ -61,6 +61,7 @@ from .aws_utils import (
     create_s3_client,
     upload_file_to_s3,
     list_objects_in_bucket_key,
+    read_s3_obj_to_variable,
 
 )
 
