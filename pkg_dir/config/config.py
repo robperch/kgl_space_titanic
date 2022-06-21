@@ -72,6 +72,30 @@ pipeline_pickles_dir = os.path.join(pickles_dir_path, 'pipeline') + '/'
 pipeline_pkl_extract_name = 'extract'
 pipeline_pkl_extract_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_extract_name) + '/'
 
+### Transform pickles
+pipeline_pkl_transform_name = 'trans'
+pipeline_pkl_transform_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_transform_name) + '/'
+
+### Feature engineering pickles
+pipeline_pkl_feateng_name = 'feateng'
+pipeline_pkl_feateng_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_feateng_name) + '/'
+
+### Model training pickles
+pipeline_pkl_modtrain_name = 'modtrain'
+pipeline_pkl_modtrain_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_modtrain_name) + '/'
+
+### Model selection pickles
+pipeline_pkl_modsel_name = 'modsel'
+pipeline_pkl_modsel_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_modsel_name) + '/'
+
+### Bias and fairness pickles
+pipeline_pkl_bifair_name = 'bifair'
+pipeline_pkl_bifair_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_bifair_name) + '/'
+
+### Prediction pickles
+pipeline_pkl_predict_name = 'predict'
+pipeline_pkl_predict_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_predict_name) + '/'
+
 
 
 

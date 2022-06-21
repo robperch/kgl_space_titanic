@@ -20,6 +20,18 @@ from .config import (
     pickles_dir_path,
     pipeline_pkl_extract_local_dir,
     pipeline_pkl_extract_name,
+    pipeline_pkl_transform_name,
+    pipeline_pkl_transform_local_dir,
+    pipeline_pkl_feateng_name,
+    pipeline_pkl_feateng_local_dir,
+    pipeline_pkl_modtrain_name,
+    pipeline_pkl_modtrain_local_dir,
+    pipeline_pkl_modsel_name,
+    pipeline_pkl_modsel_local_dir,
+    pipeline_pkl_bifair_name,
+    pipeline_pkl_bifair_local_dir,
+    pipeline_pkl_predict_name,
+    pipeline_pkl_predict_local_dir,
 
     ## AWS S3 paths
     base_bucket_name,
