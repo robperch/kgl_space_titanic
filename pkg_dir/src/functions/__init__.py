@@ -2,9 +2,16 @@
 
 
 ## Imports
+
 from .pipeline.extract_funcs import (
 
     extract_pipeline_func,
+
+)
+
+from .pipeline.transform_funcs import (
+
+    transform_pipeline_func,
 
 )
 
