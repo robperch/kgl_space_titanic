@@ -298,7 +298,10 @@ def drop_irrelevant_columns_with_data_schema(dfx, data_schema):
     rc = [
         data_schema[col]["clean_col_name"]
         for col in data_schema
-        if data_schema[col]["relevant"]
+        if
+            data_schema[col]["relevant"]
+            and
+            data_schema[col]["clean_col_name"] in dfx.columns
     ]
 
     ## Dropping selected columns
