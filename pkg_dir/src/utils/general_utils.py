@@ -330,7 +330,6 @@ def format_data_types_with_data_schema(dfx, data_schema):
     ]
     for col in rc:
         dfx[col] = dfx[col].astype("str")
-        # dfx[col] = dfx[col].apply(lambda x: unidecode.unidecode(x.upper()))
         dfx[col] = dfx[col].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf8')
 
 
