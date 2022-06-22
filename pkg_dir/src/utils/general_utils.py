@@ -286,6 +286,7 @@ def rename_columns_with_data_schema(dfx, data_schema):
 ## Eliminating irrelevant columns based on specified data schema
 def drop_irrelevant_columns_with_data_schema(dfx, data_schema):
     """
+    Eliminating irrelevant columns based on specified data schema
 
     :param dfx (dataframe): df containing irrelevant columns
     :param data_schema (dictionary): data schema containing distinction between relevant and irrelevant columns
@@ -301,7 +302,7 @@ def drop_irrelevant_columns_with_data_schema(dfx, data_schema):
     ]
 
     ## Dropping selected columns
-    dfx = dfx.loc[:, rc]
+    dfx = dfx.loc[:, rc].copy()
 
 
     return dfx
@@ -325,8 +326,12 @@ def format_data_types_with_data_schema(dfx, data_schema):
     rc = [
         data_schema[col]["clean_col_name"]
         for col in data_schema
-        if data_schema[col]["relevant"]
-           and data_schema[col]["data_type"] == "str"
+        if
+            data_schema[col]["relevant"]
+            and
+            data_schema[col]["data_type"] == "str"
+            and
+            data_schema[col]["clean_col_name"] in dfx.columns
     ]
     for col in rc:
         dfx[col] = dfx[col].astype("str")
@@ -337,8 +342,12 @@ def format_data_types_with_data_schema(dfx, data_schema):
     rc = [
         data_schema[col]["clean_col_name"]
         for col in data_schema
-        if data_schema[col]["relevant"]
-           and data_schema[col]["data_type"] == "datetime"
+        if
+            data_schema[col]["relevant"]
+            and
+            data_schema[col]["data_type"] == "datetime"
+            and
+            data_schema[col]["clean_col_name"] in dfx.columns
     ]
     for col in rc:
         dfx[col] = pd.to_datetime(dfx[col], errors="coerce")
@@ -359,8 +368,12 @@ def format_data_types_with_data_schema(dfx, data_schema):
     rc = [
         data_schema[col]["clean_col_name"]
         for col in data_schema
-        if data_schema[col]["relevant"]
-           and data_schema[col]["data_type"] == "float"
+        if
+            data_schema[col]["relevant"]
+            and
+            data_schema[col]["data_type"] == "float"
+            and
+            data_schema[col]["clean_col_name"] in dfx.columns
     ]
     for col in rc:
         dfx[col] = pd.to_numeric(dfx[col], downcast="float")
@@ -385,7 +398,12 @@ def map_row_values_with_data_schema(dfx, data_schema):
     mapping_reference = {
         data_schema[col]["clean_col_name"]: data_schema[col]["values_map"]
         for col in data_schema
-        if "values_map" in data_schema[col]
+        if
+            "values_map" in data_schema[col]
+            and
+            data_schema[col]['relevant']
+            and
+            data_schema[col]["clean_col_name"] in dfx.columns
     }
 
     ## Mapping values according to reference

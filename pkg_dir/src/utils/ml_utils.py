@@ -27,7 +27,16 @@
 "----------------------------------------------------------------------------------------------------------------------"
 
 
-##
+# ## Save raw training data locally as a pickle separating features from label
+# def save_raw_training_data_as_local_pkl(dfx, pkl_path):
+#     """
+#     Save raw training data locally as a pickle separating features from label
+#
+#     :param dfx: (pd.DataFrame) dataframe with raw training data
+#     :param pkl_path: (string) path where the resulting pickles (features and label) will be saved
+#     :return:
+#     """
+
 
 
 
