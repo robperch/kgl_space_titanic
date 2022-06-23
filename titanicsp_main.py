@@ -42,10 +42,7 @@ def pipeline_main_func():
     extract_pipeline_func()
 
     ## Transform pipeline function
-    df_trans_train, df_trans_test = transform_pipeline_func(
-        base_bucket_name,
-        os.path.join('pipeline_pkls', pipeline_pkl_extract_name)
-    )
+    transform_pipeline_func()
 
 
     return

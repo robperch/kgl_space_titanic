@@ -110,7 +110,7 @@ pipeline_pkl_predict_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl
 base_bucket_name = 'titanic-spaceship-aws-bucket'
 
 ### Pipeline pickles
-aws_pipeline_pkl_extract_key = os.path.join('pipeline_pkls', pipeline_pkl_extract_name)
+pipeline_pkl_extract_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_extract_name)
 
 
 
