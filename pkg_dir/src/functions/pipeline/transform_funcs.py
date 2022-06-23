@@ -31,6 +31,29 @@ from pkg_dir.src.parameters import *
 
 "--------------- Unitary functions ---------------"
 
+## Discerning between train and test datasets
+def discern_between_train_and_test(extract_obj):
+    """
+    Discerning between train and test datasets
+
+    :param extract_obj: (string) name of the extract object obtained from AWS S3
+    :return obj_key: (string) keyword to indentify between train and test
+    """
+
+
+    ## Finding keyword in the object's name
+    if 'train' in extract_obj:
+        obj_key = 'train'
+    elif 'test' in extract_obj:
+        obj_key = 'test'
+    else:
+        raise NameError('No keyword was identified in the object')
+
+
+    return obj_key
+
+
+
 ## Setting the id feature as the index
 def set_id_feature_as_index(dfx):
     """
@@ -127,12 +150,7 @@ def transform_pipeline_func():
     for extract_obj in extract_objects:
 
         ## Setting key to identify the object
-        if 'train' in extract_obj:
-            obj_key = 'train'
-        elif 'test' in extract_obj:
-            obj_key = 'test'
-        else:
-            raise NameError('No keyword was identified in the object')
+        obj_key = discern_between_train_and_test(extract_obj)
 
         ## Reading the object's content
         dfx = read_s3_obj_to_variable(base_bucket_name, pipeline_pkl_extract_aws_key, extract_obj)
