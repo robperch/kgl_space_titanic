@@ -44,6 +44,9 @@ def pipeline_main_func():
     ## Transform pipeline function
     transform_pipeline_func()
 
+    ## Feature engineering pipeline function
+    feateng_pipeline_func()
+
 
     return
 

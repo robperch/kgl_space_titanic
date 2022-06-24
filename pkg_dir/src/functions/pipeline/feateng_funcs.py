@@ -51,6 +51,12 @@ def feateng_pipeline_func():
     transform_objects = list_objects_in_bucket_key(base_bucket_name, pipeline_pkl_transform_aws_key)
 
 
+    ## Iterating over every extract object and applying the wrangling functions
+    # for extract_obj in transform_objects:
+    #
+    #     ## Setting key to identify the object
+
+
     return
 
 
