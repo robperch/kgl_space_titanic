@@ -214,10 +214,9 @@ def save_transform_aws_df_pkl(obj_key, dfx):
 ## Transform pipeline function
 def transform_pipeline_func():
     """
-    Extract pipeline function
+    Transform pipeline function
 
-    :return df_trans_train: (pd.DataFrame) df with the training data after the 'transform' step of the pipeline
-    :return df_trans_test: (pd.DataFrame) df with the test data after the 'transform' step of the pipeline
+    :return None:
     """
 
 
