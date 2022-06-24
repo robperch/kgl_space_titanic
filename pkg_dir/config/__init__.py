@@ -36,6 +36,7 @@ from .config import (
     ## AWS S3 paths
     base_bucket_name,
     pipeline_pkl_extract_aws_key,
+    pipeline_pkl_transform_aws_key,
 
 )
 

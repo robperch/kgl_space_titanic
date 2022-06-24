@@ -111,6 +111,7 @@ base_bucket_name = 'titanic-spaceship-aws-bucket'
 
 ### Pipeline pickles
 pipeline_pkl_extract_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_extract_name)
+pipeline_pkl_transform_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_transform_name)
 
 
 

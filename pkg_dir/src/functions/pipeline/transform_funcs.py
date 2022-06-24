@@ -130,6 +130,85 @@ def save_transform_local_df_pkl(obj_key, dfx):
 
 
 
+## Saving the transform pickles locally
+def save_transform_aws_df_pkl(obj_key, dfx):
+    """
+    Saving the transform pickles locally
+
+    :param obj_key: (string) identifier to differentiate if it's the training or testing dataset
+    :param dfx: (pd.DataFrame) dataframe with either the test or train info
+    :return None:
+    """
+
+
+    ## Differentiate between the transform datasets (train or test)
+    if obj_key == 'train':
+
+        ## Saving features
+
+        ### Function parameters
+
+        file_path = os.path.join(
+            pipeline_pkl_transform_local_dir,
+            pipeline_pkl_transform_name
+        ) + '_' + obj_key + '_x.pkl'
+
+        object_name = os.path.join(
+            pipeline_pkl_transform_aws_key,
+            pipeline_pkl_transform_name
+        ) + '_' + obj_key + '_x.pkl'
+
+
+        ### Uploading file
+
+        upload_file_to_s3(file_path, base_bucket_name, object_name)
+
+
+        ## Saving labels
+
+        ### Function parameters
+
+        file_path = os.path.join(
+            pipeline_pkl_transform_local_dir,
+            pipeline_pkl_transform_name
+        ) + '_' + obj_key + '_y.pkl'
+
+        object_name = os.path.join(
+            pipeline_pkl_transform_aws_key,
+            pipeline_pkl_transform_name
+        ) + '_' + obj_key + '_y.pkl'
+
+
+        ### Uploading file
+
+        upload_file_to_s3(file_path, base_bucket_name, object_name)
+
+
+
+    elif obj_key == 'test':
+
+        ## Function parameters
+
+        file_path = os.path.join(
+            pipeline_pkl_transform_local_dir,
+            pipeline_pkl_transform_name
+        ) + '_' + obj_key + '_x.pkl'
+
+        object_name = os.path.join(
+            pipeline_pkl_transform_aws_key,
+            pipeline_pkl_transform_name
+        ) + '_' + obj_key + '_x.pkl'
+
+
+        ## Uploading file
+
+        upload_file_to_s3(file_path, base_bucket_name, object_name)
+
+
+    return
+
+
+
 "--------------- Compounded functions ---------------"
 
 ## Transform pipeline function
@@ -167,16 +246,8 @@ def transform_pipeline_func():
         ## Saving the transform pickles locally
         save_transform_local_df_pkl(obj_key, dfx)
 
-        # ## Saving object locally as pickle
-        #
-        #
-        # ### Saving local pickle
-        # pkl_path = os.path.join(pipeline_pkl_transform_local_dir, pipeline_pkl_transform_name) + '_' + obj_key + '.pkl'
-        # pickle.dump(res_dict[obj_key], open(pkl_path, 'wb'))
-        #
-        # ## Saving object in a s3 path
-        # object_name =
-        # upload_file_to_s3(pkl_path, base_bucket_name, pipeline_pkl_transform_name + '_' + obj_key + '.pkl')
+        ## Saving object a AWS bucket
+        save_transform_aws_df_pkl(obj_key, dfx)
 
 
     return
