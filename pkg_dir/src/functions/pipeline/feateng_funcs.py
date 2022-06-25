@@ -47,14 +47,16 @@ def feateng_pipeline_func():
     """
 
 
-    ## Listing the objects obtained after the 'transform' step of the pipeline
-    transform_objects = list_objects_in_bucket_key(base_bucket_name, pipeline_pkl_transform_aws_key)
+    ## Listing the objects obtained after de 'extract' step of the pipeline and saved locally
+    extract_objects = os.listdir(pipeline_pkl_transform_local_dir)
 
 
     ## Iterating over every extract object and applying the wrangling functions
-    # for extract_obj in transform_objects:
-    #
-    #     ## Setting key to identify the object
+    for extract_obj in transform_objects:
+
+        ## Leaving only the features relevant for the model
+        # dfx
+        pass
 
 
     return

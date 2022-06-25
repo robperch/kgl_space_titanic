@@ -220,8 +220,8 @@ def transform_pipeline_func():
     """
 
 
-    ## Listing the objects obtained after the 'extract' step of the pipeline
-    extract_objects = list_objects_in_bucket_key(base_bucket_name, pipeline_pkl_extract_aws_key)
+    ## Listing the objects obtained after de 'extract' step of the pipeline and saved locally
+    extract_objects = os.listdir(pipeline_pkl_extract_local_dir)
 
 
     ## Iterating over every extract object and applying the wrangling functions
