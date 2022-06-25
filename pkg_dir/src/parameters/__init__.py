@@ -5,6 +5,7 @@
 from .titanicsp_params import (
 
     titanicsp_base_data_schema,
+    titanicsp_full_data_schema,
 
 )
 

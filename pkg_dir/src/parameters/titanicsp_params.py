@@ -157,6 +157,11 @@ titanicsp_base_data_schema = {
 
 
 
+## Data schema to handle data
+titanicsp_full_data_schema = {}
+
+
+
 
 
 "----------------------------------------------------------------------------------------------------------------------"
