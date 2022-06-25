@@ -48,11 +48,14 @@ def feateng_pipeline_func():
 
 
     ## Listing the objects obtained after de 'extract' step of the pipeline and saved locally
-    extract_objects = os.listdir(pipeline_pkl_transform_local_dir)
+    transform_objects = os.listdir(pipeline_pkl_transform_local_dir)
 
 
     ## Iterating over every extract object and applying the wrangling functions
-    for extract_obj in transform_objects:
+    for transform_obj in transform_objects:
+
+        ## Setting key to identify the object
+        obj_key = discern_between_train_and_test(transform_objects)
 
         ## Leaving only the features relevant for the model
         # dfx

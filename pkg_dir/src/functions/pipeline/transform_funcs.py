@@ -31,29 +31,6 @@ from pkg_dir.src.parameters import *
 
 "--------------- Unitary functions ---------------"
 
-## Discerning between train and test datasets
-def discern_between_train_and_test(extract_obj):
-    """
-    Discerning between train and test datasets
-
-    :param extract_obj: (string) name of the extract object obtained from AWS S3
-    :return obj_key: (string) keyword to indentify between train and test
-    """
-
-
-    ## Finding keyword in the object's name
-    if 'train' in extract_obj:
-        obj_key = 'train'
-    elif 'test' in extract_obj:
-        obj_key = 'test'
-    else:
-        raise NameError('No keyword was identified in the object')
-
-
-    return obj_key
-
-
-
 ## Setting the id feature as the index
 def set_id_feature_as_index(dfx):
     """

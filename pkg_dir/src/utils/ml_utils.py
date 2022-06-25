@@ -27,16 +27,26 @@
 "----------------------------------------------------------------------------------------------------------------------"
 
 
-# ## Save raw training data locally as a pickle separating features from label
-# def save_raw_training_data_as_local_pkl(dfx, pkl_path):
-#     """
-#     Save raw training data locally as a pickle separating features from label
-#
-#     :param dfx: (pd.DataFrame) dataframe with raw training data
-#     :param pkl_path: (string) path where the resulting pickles (features and label) will be saved
-#     :return:
-#     """
+## Discerning between train and test datasets
+def discern_between_train_and_test(obj):
+    """
+    Discerning between train and test datasets
 
+    :param obj: (string) name of the extract object obtained from AWS S3
+    :return obj_key: (string) keyword to indentify between train and test
+    """
+
+
+    ## Finding keyword in the object's name
+    if 'train' in obj:
+        obj_key = 'train'
+    elif 'test' in obj:
+        obj_key = 'test'
+    else:
+        raise NameError('No keyword was identified in the object')
+
+
+    return obj_key
 
 
 
