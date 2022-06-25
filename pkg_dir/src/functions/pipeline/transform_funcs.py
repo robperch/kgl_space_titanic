@@ -44,8 +44,8 @@ def set_id_feature_as_index(dfx):
     ## Id feature
     id_feature = [
         col
-        for col in titanicsp_data_schema
-        if 'id_feature' in titanicsp_data_schema[col]
+        for col in titanicsp_base_data_schema
+        if 'id_feature' in titanicsp_base_data_schema[col]
     ][0]
 
     ## Set id feature as index
@@ -108,12 +108,11 @@ def save_transform_local_df_pkl(obj_key, dfx):
 
 
 ## Saving the transform pickles locally
-def save_transform_aws_df_pkl(obj_key, dfx):
+def save_transform_aws_df_pkl(obj_key):
     """
     Saving the transform pickles locally
 
     :param obj_key: (string) identifier to differentiate if it's the training or testing dataset
-    :param dfx: (pd.DataFrame) dataframe with either the test or train info
     :return None:
     """
 
@@ -212,7 +211,7 @@ def transform_pipeline_func():
             dfx = pickle.load(object)
 
         ## Apply data wrangling functions based on a predefined dataschema
-        dfx = data_wrangling_schema_functions(dfx, titanicsp_data_schema)
+        dfx = data_wrangling_schema_functions(dfx, titanicsp_base_data_schema)
 
         ## Setting the id feature as the index
         dfx = set_id_feature_as_index(dfx)
@@ -224,7 +223,7 @@ def transform_pipeline_func():
         save_transform_local_df_pkl(obj_key, dfx)
 
         ## Saving object a AWS bucket
-        save_transform_aws_df_pkl(obj_key, dfx)
+        save_transform_aws_df_pkl(obj_key)
 
 
     return

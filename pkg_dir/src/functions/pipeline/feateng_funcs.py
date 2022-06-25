@@ -31,7 +31,37 @@ from pkg_dir.src.parameters import *
 
 "--------------- Unitary functions ---------------"
 
-## Xxx
+## Adding new features to dataset
+def adding_new_features(dfx):
+    """
+    Adding new features to dataset
+
+    :param dfx: (pd.DataFrame) data that will be enhanced with new features
+    :return dfx: (pd.DataFrame) data with new features added
+    """
+
+
+    ## Inserting column with total amount of spent money in luxury amenities
+
+    ### Expenses columns
+    exp_cols = [
+        'RoomService',
+        'FoodCourt',
+        'ShoppingMall',
+        'Spa',
+        'VRDeck',
+    ]
+
+    ### Inserting new column
+    dfx.insert(
+        dfx.columns.tolist().index('VRDeck') + 1,
+        'ExpensesSum',
+        dfx.loc[:, exp_cols].sum(axis=1)
+    )
+
+
+    return dfx
+
 
 
 
@@ -58,8 +88,21 @@ def feateng_pipeline_func():
         obj_key = discern_between_train_and_test(transform_objects)
 
         ## Reading the object's content from the locally saved pickle
-        with open(pipeline_pkl_extract_local_dir + transform_obj) as object:
-            dfx = pickle.load(object)
+        with open(pipeline_pkl_extract_local_dir + transform_obj) as obj:
+            dfx = pickle.load(obj)
+
+        ## Adding new features
+        dfx = adding_new_features(dfx)
+
+        ## Dropping features irrelevant for the model
+
+        ## Applying feature engineering functions
+
+        ## Saving dataschema as json after feature engineering
+
+        ## Saving results locally as pickles
+
+        ## Saving results in AWS S3 as pickles
 
 
     return

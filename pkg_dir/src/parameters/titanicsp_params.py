@@ -27,7 +27,7 @@
 
 
 ## Data schema to handle data
-titanicsp_data_schema = {
+titanicsp_base_data_schema = {
 
     'PassengerId': {
         'relevant': True,
@@ -99,7 +99,7 @@ titanicsp_data_schema = {
         'clean_col_name': 'RoomService',
         'data_type': 'float',
         'feature_type': 'numerical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'FoodCourt': {
@@ -107,7 +107,7 @@ titanicsp_data_schema = {
         'clean_col_name': 'FoodCourt',
         'data_type': 'float',
         'feature_type': 'numerical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'ShoppingMall': {
@@ -115,7 +115,7 @@ titanicsp_data_schema = {
         'clean_col_name': 'ShoppingMall',
         'data_type': 'float',
         'feature_type': 'numerical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'Spa': {
@@ -123,7 +123,7 @@ titanicsp_data_schema = {
         'clean_col_name': 'Spa',
         'data_type': 'float',
         'feature_type': 'numerical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'VRDeck': {
@@ -131,7 +131,7 @@ titanicsp_data_schema = {
         'clean_col_name': 'VRDeck',
         'data_type': 'float',
         'feature_type': 'numerical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'Name': {
