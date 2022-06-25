@@ -57,9 +57,9 @@ def feateng_pipeline_func():
         ## Setting key to identify the object
         obj_key = discern_between_train_and_test(transform_objects)
 
-        ## Leaving only the features relevant for the model
-        # dfx
-        pass
+        ## Reading the object's content from the locally saved pickle
+        with open(pipeline_pkl_extract_local_dir + transform_obj) as object:
+            dfx = pickle.load(object)
 
 
     return

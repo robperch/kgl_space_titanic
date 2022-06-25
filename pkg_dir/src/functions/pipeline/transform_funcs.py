@@ -207,8 +207,9 @@ def transform_pipeline_func():
         ## Setting key to identify the object
         obj_key = discern_between_train_and_test(extract_obj)
 
-        ## Reading the object's content
-        dfx = read_s3_obj_to_variable(base_bucket_name, pipeline_pkl_extract_aws_key, extract_obj)
+        ## Reading the object's content from the locally saved pickle
+        with open(pipeline_pkl_extract_local_dir + extract_obj) as object:
+            dfx = pickle.load(object)
 
         ## Apply data wrangling functions based on a predefined dataschema
         dfx = data_wrangling_schema_functions(dfx, titanicsp_data_schema)
