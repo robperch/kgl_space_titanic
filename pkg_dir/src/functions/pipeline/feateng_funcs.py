@@ -64,6 +64,23 @@ def adding_new_features(dfx):
 
 
 
+## Dropping features irrelevant for the model
+def dropping_irrelevant_model_features(dfx):
+    """
+    Dropping features irrelevant for the model
+
+    :param dfx: (pd.DataFrame) dataframe with all features, including the recently added
+    :return dfx: (pd.DataFrame) dataframe only with the features that are relevant for the model
+    """
+
+
+    ##
+
+
+    return
+
+
+
 
 
 "--------------- Compounded functions ---------------"
@@ -95,6 +112,7 @@ def feateng_pipeline_func():
         dfx = adding_new_features(dfx)
 
         ## Dropping features irrelevant for the model
+        dfx = dropping_irrelevant_model_features(dfx)
 
         ## Applying feature engineering functions
 
