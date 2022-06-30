@@ -142,12 +142,16 @@ def feateng_pipeline_func():
     ## Listing the objects obtained after de 'extract' step of the pipeline and saved locally
     transform_objects = os.listdir(pipeline_pkl_transform_local_dir)
 
+    ## Leaving only data objects that contain features, not labels
+    transform_objects = [
+        tr_obj
+        for tr_obj in transform_objects
+        if '_x.' in tr_obj
+    ]
+
 
     ## Iterating over every extract object and applying the wrangling functions
     for transform_obj in transform_objects:
-
-        ## Setting key to identify the object
-        obj_key = discern_between_train_and_test(transform_obj)
 
         ## Reading the object's content from the locally saved pickle
         with open(pipeline_pkl_transform_local_dir + transform_obj, 'rb') as obj:
@@ -160,7 +164,7 @@ def feateng_pipeline_func():
         dfx = dropping_irrelevant_model_features(dfx)
 
         ## Applying feature engineering functions
-        dfx = feature_engineering(dfx)
+        # dfx = feature_engineering(dfx)
 
         ## Saving dataschema as json after feature engineering
 
