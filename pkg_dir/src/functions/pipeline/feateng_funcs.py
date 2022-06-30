@@ -93,10 +93,21 @@ def dropping_irrelevant_model_features(dfx):
     """
 
 
-    ##
+    ## List of features that will be fed to the model
+    model_features = [
+        feat
+        for feat in titanicsp_full_data_schema
+        if
+            titanicsp_full_data_schema[feat]['relevant']
+            and
+            feat in dfx.columns
+    ]
+
+    ## Leaving only features relevant for the model
+    dfx = dfx.loc[:, model_features].copy()
 
 
-    return
+    return dfx
 
 
 
