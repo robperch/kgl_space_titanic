@@ -1,0 +1,120 @@
+{
+  "PassengerId": {
+    "relevant": true,
+    "clean_col_name": "PassengerId",
+    "data_type": "str",
+    "feature_type": "categorical",
+    "model_relevant": false,
+    "id_feature": true
+  },
+  "HomePlanet": {
+    "relevant": true,
+    "clean_col_name": "HomePlanet",
+    "data_type": "str",
+    "feature_type": "categorical",
+    "model_relevant": true
+  },
+  "CryoSleep": {
+    "relevant": true,
+    "clean_col_name": "CryoSleep",
+    "data_type": "bool",
+    "value_map": {
+      "False": false,
+      "True": true
+    },
+    "feature_type": "boolean",
+    "model_relevant": true
+  },
+  "Cabin": {
+    "relevant": true,
+    "clean_col_name": "Cabin",
+    "data_type": "str",
+    "feature_type": "categorical",
+    "model_relevant": true
+  },
+  "Destination": {
+    "relevant": true,
+    "clean_col_name": "Destination",
+    "data_type": "str",
+    "feature_type": "categorical",
+    "model_relevant": true
+  },
+  "Age": {
+    "relevant": true,
+    "clean_col_name": "Age",
+    "data_type": "int",
+    "feature_type": "numerical",
+    "model_relevant": true
+  },
+  "VIP": {
+    "relevant": true,
+    "clean_col_name": "VIP",
+    "data_type": "bool",
+    "value_map": {
+      "False": false,
+      "True": true
+    },
+    "feature_type": "boolean",
+    "model_relevant": true
+  },
+  "RoomService": {
+    "relevant": true,
+    "clean_col_name": "RoomService",
+    "data_type": "float",
+    "feature_type": "numerical",
+    "model_relevant": false
+  },
+  "FoodCourt": {
+    "relevant": true,
+    "clean_col_name": "FoodCourt",
+    "data_type": "float",
+    "feature_type": "numerical",
+    "model_relevant": false
+  },
+  "ShoppingMall": {
+    "relevant": true,
+    "clean_col_name": "ShoppingMall",
+    "data_type": "float",
+    "feature_type": "numerical",
+    "model_relevant": false
+  },
+  "Spa": {
+    "relevant": true,
+    "clean_col_name": "Spa",
+    "data_type": "float",
+    "feature_type": "numerical",
+    "model_relevant": false
+  },
+  "VRDeck": {
+    "relevant": true,
+    "clean_col_name": "VRDeck",
+    "data_type": "float",
+    "feature_type": "numerical",
+    "model_relevant": false
+  },
+  "Name": {
+    "relevant": true,
+    "clean_col_name": "Name",
+    "data_type": "str",
+    "feature_type": "categorical",
+    "model_relevant": true
+  },
+  "Transported": {
+    "relevant": true,
+    "clean_col_name": "label",
+    "data_type": "boolean",
+    "value_map": {
+      "False": false,
+      "True": true
+    },
+    "predict_label": true
+  },
+  "ExpensesSum": {
+    "relevant": true,
+    "clean_col_name": "ExpensesSum",
+    "data_type": "float",
+    "feature_type": "numerical",
+    "model_relevant": true,
+    "note": "feature added from base features"
+  }
+}

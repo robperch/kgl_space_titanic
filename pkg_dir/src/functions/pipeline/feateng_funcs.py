@@ -98,9 +98,9 @@ def dropping_irrelevant_model_features(dfx):
         feat
         for feat in titanicsp_full_data_schema
         if
-            titanicsp_full_data_schema[feat]['relevant']
-            and
-            feat in dfx.columns
+        titanicsp_full_data_schema[feat]['model_relevant']
+        and
+        feat in dfx.columns
     ]
 
     ## Leaving only features relevant for the model
@@ -121,7 +121,9 @@ def feature_engineering(dfx):
     """
 
 
-    ##
+    ## Segmenting features by type to process them through pipeline
+
+
 
 
     return
@@ -164,7 +166,7 @@ def feateng_pipeline_func():
         dfx = dropping_irrelevant_model_features(dfx)
 
         ## Applying feature engineering functions
-        # dfx = feature_engineering(dfx)
+        dfx = feature_engineering(dfx)
 
         ## Saving dataschema as json after feature engineering
 
