@@ -59,6 +59,25 @@ def adding_new_features(dfx):
         dfx.loc[:, exp_cols].sum(axis=1)
     )
 
+    ### Data schema of the new feature
+    new_feat_data_schema = {
+        'relevant': True,
+        'clean_col_name': 'ExpensesSum',
+        'data_type': 'float',
+        'feature_type': 'numerical',
+        'model_relevant': True,
+        'note': 'feature added from base features',
+    }
+
+    ### Updating and saving data schema with new feature
+    update_save_data_schema(
+        titanicsp_full_data_schema,
+        'ExpensesSum',
+        new_feat_data_schema,
+        local_json_path,
+        json_name
+    )
+
 
     return dfx
 
@@ -81,6 +100,21 @@ def dropping_irrelevant_model_features(dfx):
 
 
 
+## Applying feature engineering functions
+def feature_engineering(dfx):
+    """
+    Applying feature engineering functions
+
+    :param dfx: (pd.DataFrame) df with raw and added features before being adjusted for the model
+    :return dfx: (pd.DataFrame) df with features adjusted for the model
+    """
+
+
+    ##
+
+
+    return
+
 
 
 "--------------- Compounded functions ---------------"
@@ -102,10 +136,10 @@ def feateng_pipeline_func():
     for transform_obj in transform_objects:
 
         ## Setting key to identify the object
-        obj_key = discern_between_train_and_test(transform_objects)
+        obj_key = discern_between_train_and_test(transform_obj)
 
         ## Reading the object's content from the locally saved pickle
-        with open(pipeline_pkl_extract_local_dir + transform_obj) as obj:
+        with open(pipeline_pkl_transform_local_dir + transform_obj, 'rb') as obj:
             dfx = pickle.load(obj)
 
         ## Adding new features
@@ -115,6 +149,7 @@ def feateng_pipeline_func():
         dfx = dropping_irrelevant_model_features(dfx)
 
         ## Applying feature engineering functions
+        dfx = feature_engineering(dfx)
 
         ## Saving dataschema as json after feature engineering
 

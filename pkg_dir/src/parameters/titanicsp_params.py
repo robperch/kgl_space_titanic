@@ -158,7 +158,13 @@ titanicsp_base_data_schema = {
 
 
 ## Data schema to handle data
-titanicsp_full_data_schema = {}
+titanicsp_full_data_schema = titanicsp_base_data_schema
+
+
+
+## Parameters for local json containing updated data schema
+local_json_path = "pkg_dir/src/parameters/"
+json_name = "data_schema"
 
 
 

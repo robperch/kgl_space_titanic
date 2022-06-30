@@ -16,6 +16,7 @@ from .general_utils import (
     read_yaml,
     format_json,
     generate_data_dictionary,
+    dump_dir_as_json,
     read_json,
     create_directory_if_nonexistent,
 
@@ -69,6 +70,7 @@ from .aws_utils import (
 from .ml_utils import (
 
     discern_between_train_and_test,
+    update_save_data_schema,
 
 )
 

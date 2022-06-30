@@ -106,6 +106,32 @@ def generate_data_dictionary(df_cols, data_dicts_loc, data_dict_filename):
 
 
 
+## Dumping locally dictionary as json file
+def dump_dir_as_json(dictionary, dump_path, json_name):
+    """
+    Dumping locally dictionary as json file
+
+    :param dictionary: (dict) dictionary that will be dumped as json
+    :param dump_path: (string) path where the json will be stored on local machine
+    :param json_name: (string) name of the json file that will be stored
+    :return None:
+    """
+
+
+    ## Dumping dict as json
+    with open(dump_path + json_name, "w") as outfile:
+        json.dump(
+            dictionary,
+            outfile,
+            ensure_ascii=False,
+            indent=2,
+        )
+
+
+    return
+
+
+
 ## Reading json file
 def read_json(file_path):
     """
