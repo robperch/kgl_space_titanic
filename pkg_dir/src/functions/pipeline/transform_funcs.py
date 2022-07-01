@@ -207,7 +207,7 @@ def transform_pipeline_func():
         obj_key = discern_between_train_and_test(extract_obj)
 
         ## Reading the object's content from the locally saved pickle
-        with open(pipeline_pkl_extract_local_dir + extract_obj) as object:
+        with open(pipeline_pkl_extract_local_dir + extract_obj, 'rb') as object:
             dfx = pickle.load(object)
 
         ## Apply data wrangling functions based on a predefined dataschema

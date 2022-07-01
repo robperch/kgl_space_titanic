@@ -26,11 +26,11 @@
     "model_relevant": true
   },
   "Cabin": {
-    "relevant": true,
+    "relevant": false,
     "clean_col_name": "Cabin",
     "data_type": "str",
     "feature_type": "categorical",
-    "model_relevant": true
+    "model_relevant": false
   },
   "Destination": {
     "relevant": true,

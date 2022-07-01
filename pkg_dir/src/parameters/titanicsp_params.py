@@ -59,11 +59,11 @@ titanicsp_base_data_schema = {
     },
 
     'Cabin': {
-        'relevant': True,
+        'relevant': False,
         'clean_col_name': 'Cabin',
         'data_type': 'str',
         'feature_type': 'categorical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'Destination': {
