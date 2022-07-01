@@ -1,4 +1,4 @@
-## PYTHON TEMPLATE FILE
+## MODULE WITH ML PARAMETERS FOR THE PROJECT
 
 
 
@@ -13,7 +13,11 @@
 
 
 "--- Third party imports ---"
-
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import (
+    OneHotEncoder,
+    StandardScaler
+)
 
 "--- Local application imports ---"
 
@@ -23,11 +27,25 @@
 
 
 "----------------------------------------------------------------------------------------------------------------------"
-############### XXX ####################################################################################
+############### Scikit-Learn parameters ################################################################################
 "----------------------------------------------------------------------------------------------------------------------"
 
 
-"--------------- XXX ---------------"
+"--------------- Column Transformer pipeline ---------------"
+
+## Categorical pipeline
+categorical_ppl = Pipeline(
+    [
+        ('hotencode', OneHotEncoder())
+    ]
+)
+
+## Numerical pipeline
+numerical_ppl = Pipeline(
+    [
+        ('std_scaler', StandardScaler())
+    ]
+)
 
 
 
