@@ -98,6 +98,8 @@ def dropping_irrelevant_model_features(dfx):
         feat
         for feat in titanicsp_full_data_schema
         if
+        'model_relevant' in titanicsp_full_data_schema[feat]
+        and
         titanicsp_full_data_schema[feat]['model_relevant']
         and
         feat in dfx.columns
@@ -123,10 +125,44 @@ def feature_engineering(dfx):
 
     ## Segmenting features by type to process them through pipeline
 
+    ### Categorical features
+    categorical_feats = [
+        feat
+        for feat in titanicsp_full_data_schema
+        if
+        'feature_type' in titanicsp_full_data_schema[feat]
+        and
+        titanicsp_full_data_schema[feat]['feature_type'] == 'categorical'
+        and
+        feat in dfx.columns
+    ]
+
+    ### numerical features
+    numerical_feats = [
+        feat
+        for feat in titanicsp_full_data_schema
+        if
+        'feature_type' in titanicsp_full_data_schema[feat]
+        and
+        titanicsp_full_data_schema[feat]['feature_type'] == 'numerical'
+        and
+        feat in dfx.columns
+    ]
 
 
+    ## Applying the data processing pipeline to the features
 
-    return
+    ### Building list of tuples to feed the data processing pipeline
+    data_ppl_tuples = [
+        ('categorical', categorical_ppl, categorical_feats),
+        ('numerical', numerical_ppl, numerical_feats),
+    ]
+
+    ### Applying pipeline based on provided tuples
+    dfx = apply_data_ppl_with_tuples(dfx, data_ppl_tuples)
+
+
+    return dfx
 
 
 
