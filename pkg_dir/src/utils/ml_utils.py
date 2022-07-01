@@ -13,7 +13,7 @@
 
 
 "--- Third party imports ---"
-
+from sklearn.compose import ColumnTransformer
 
 "--- Local application imports ---"
 from pkg_dir.src.utils import *
@@ -73,6 +73,28 @@ def update_save_data_schema(data_schema, feature_name, new_feature_data_schema, 
 
 
     return
+
+
+
+## Applying the data processing pipeline to the features based on provided tuples
+def apply_data_ppl_with_tuples(features, tuples):
+    """
+    Applying the data processing pipeline to the features based on provided tuples
+
+    :param features: (pd.DataFrame) features to be processed
+    :param tuples: (list) list containing the tuples needed for sklearn's ColumnTransformer
+    :return processed_features: (np.array) array with features after being processed through the data pipeline
+    """
+
+
+    ## Defining the pipeline
+    pipeline = ColumnTransformer(tuples)
+
+    ## Executing the transformation
+    processed_features = pipeline.fit_transform(features)
+
+
+    return processed_features
 
 
 
