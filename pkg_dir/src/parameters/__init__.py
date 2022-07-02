@@ -16,6 +16,8 @@ from .titanicsp_params_ml import (
 
     categorical_ppl,
     numerical_ppl,
+    predict_models_dict,
+    predict_model_eval_metric,
 
 )
 

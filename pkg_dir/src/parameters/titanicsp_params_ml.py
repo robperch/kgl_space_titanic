@@ -18,6 +18,8 @@ from sklearn.preprocessing import (
     OneHotEncoder,
     StandardScaler
 )
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 "--- Local application imports ---"
 
@@ -46,6 +48,42 @@ numerical_ppl = Pipeline(
         ('std_scaler', StandardScaler())
     ]
 )
+
+
+
+"--------------- Predicting ML models ---------------"
+
+predict_models_dict = {
+
+    "random_forest": {
+        "model": RandomForestClassifier(
+            max_features=10,
+            n_estimators=10,
+            max_leaf_nodes=50,
+            oob_score=True,
+            n_jobs=-1,
+            random_state=1111
+        ),
+        "param_grid": {
+            "n_estimators": [5, 7],
+            "min_samples_leaf": [10],
+            "criterion": ['gini']
+        }
+    },
+
+    "decision_tree": {
+        "model": DecisionTreeClassifier(
+            random_state=2222
+        ),
+        "param_grid": {
+            'max_depth': [10, 15],
+            'min_samples_leaf': [5]
+        }
+    },
+
+}
+
+predict_model_eval_metric = 'accuracy'
 
 
 
