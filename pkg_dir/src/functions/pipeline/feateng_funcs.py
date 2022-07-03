@@ -113,13 +113,13 @@ def dropping_irrelevant_model_features(dfx):
 
 
 
-## Applying feature engineering functions
-def feature_engineering(dfx):
+## Building list of tuples to feed the data processing pipeline
+def data_pipeline_tuples(dfx):
     """
-    Applying feature engineering functions
+    Building list of tuples to feed the data processing pipeline
 
     :param dfx: (pd.DataFrame) df with raw and added features before being adjusted for the model
-    :return dfx: (pd.DataFrame) df with features adjusted for the model
+    :return data_ppl_tuples: (list) list containing the tuples needed for sklearn's ColumnTransformer
     """
 
 
@@ -157,6 +157,29 @@ def feature_engineering(dfx):
         ('categorical', categorical_ppl, categorical_feats),
         ('numerical', numerical_ppl, numerical_feats),
     ]
+
+
+    return data_ppl_tuples
+
+
+
+## Applying feature engineering functions
+def feature_engineering(dfx):
+    """
+    Applying feature engineering functions
+
+    :param dfx: (pd.DataFrame) df with raw and added features before being adjusted for the model
+    :return dfx: (pd.DataFrame) df with features adjusted for the model
+    """
+
+
+    ## Inputting nan values
+
+
+    ## Data pipeline to prepare features for the model
+
+    ### Building list of tuples to feed the data processing pipeline
+    data_ppl_tuples = data_pipeline_tuples(dfx)
 
     ### Applying pipeline based on provided tuples
     dfx = apply_data_ppl_with_tuples(dfx, data_ppl_tuples)
