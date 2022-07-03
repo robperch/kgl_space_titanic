@@ -113,6 +113,24 @@ def dropping_irrelevant_model_features(dfx):
 
 
 
+## Imputing feature values based on pre-defined rules
+def imput_feature_values(dfx):
+    """
+    Imputing feature values based on pre-defined rules
+
+    :param dfx: (pd.DataFrame) df with features containing missing values
+    :return dfx: (pd.DataFrame) df with missing values imputed
+    """
+
+
+    ## Segmenting features by type to process them through pipeline
+    feat_imputation_dict = features_list_dict(dfx, titanicsp_full_data_schema, 'imputation_strategy')
+
+
+    return
+
+
+
 ## Building list of tuples to feed the data processing pipeline
 def data_pipeline_tuples(dfx):
     """

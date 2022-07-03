@@ -44,6 +44,7 @@ titanicsp_base_data_schema = {
         'data_type': 'str',
         'feature_type': 'categorical',
         'model_relevant': True,
+        'imputation_strategy': 'most_frequent',
     },
 
     'CryoSleep': {
@@ -56,6 +57,7 @@ titanicsp_base_data_schema = {
         },
         'feature_type': 'categorical',
         'model_relevant': True,
+        'imputation_strategy': 'most_frequent',
     },
 
     'Cabin': {
@@ -72,6 +74,7 @@ titanicsp_base_data_schema = {
         'data_type': 'str',
         'feature_type': 'categorical',
         'model_relevant': True,
+        'imputation_strategy': 'most_frequent',
     },
 
     'Age': {
@@ -80,6 +83,7 @@ titanicsp_base_data_schema = {
         'data_type': 'int',
         'feature_type': 'numerical',
         'model_relevant': True,
+        'imputation_strategy': 'median',
     },
 
     'VIP': {
@@ -92,6 +96,7 @@ titanicsp_base_data_schema = {
         },
         'feature_type': 'categorical',
         'model_relevant': True,
+        'imputation_strategy': 'most_frequent',
     },
 
     'RoomService': {
@@ -100,6 +105,7 @@ titanicsp_base_data_schema = {
         'data_type': 'float',
         'feature_type': 'numerical',
         'model_relevant': False,
+        'imputation_strategy': 'constant',
     },
 
     'FoodCourt': {
@@ -108,6 +114,7 @@ titanicsp_base_data_schema = {
         'data_type': 'float',
         'feature_type': 'numerical',
         'model_relevant': False,
+        'imputation_strategy': 'constant',
     },
 
     'ShoppingMall': {
@@ -116,6 +123,7 @@ titanicsp_base_data_schema = {
         'data_type': 'float',
         'feature_type': 'numerical',
         'model_relevant': False,
+        'imputation_strategy': 'constant',
     },
 
     'Spa': {
@@ -124,6 +132,7 @@ titanicsp_base_data_schema = {
         'data_type': 'float',
         'feature_type': 'numerical',
         'model_relevant': False,
+        'imputation_strategy': 'constant',
     },
 
     'VRDeck': {
@@ -132,6 +141,7 @@ titanicsp_base_data_schema = {
         'data_type': 'float',
         'feature_type': 'numerical',
         'model_relevant': False,
+        'imputation_strategy': 'constant',
     },
 
     'Name': {
