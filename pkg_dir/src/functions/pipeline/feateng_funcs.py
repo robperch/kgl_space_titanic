@@ -124,7 +124,7 @@ def data_pipeline_tuples(dfx):
 
 
     ## Segmenting features by type to process them through pipeline
-    feat_type_dict = features_types_dict(dfx, titanicsp_full_data_schema)
+    feat_type_dict = features_list_dict(dfx, titanicsp_full_data_schema, 'feature_type')
 
 
     ## Building list of tuples to feed the data processing pipeline

@@ -96,45 +96,46 @@ def dataset_objects_dict(dataset_objs_path):
 
 
 
-## Creating dictionary with list of features grouped by type
-def features_types_dict(dfx,  data_schema):
+## Creating dictionary with list of features grouped by a defined attribute
+def features_list_dict(dfx,  data_schema, group_attribute):
     """
-    Creating dictionary with list of features grouped by type
+    Creating dictionary with list of features grouped by a defined attribute
 
     :param dfx: (pd.DataFrame) df with all features
     :param data_schema: (dictionary) data schema containing all features
-    :return feat_type_dict: (dictionary) dictionary with the type of feature as key and the list of features as value
+    :param group_attribute: (string) attribute used to group the lists of features
+    :return feat_list_dict: (dictionary) dictionary with the type of feature as key and the list of features as value
     """
 
 
     ## Generating set with all different categories in data schema
     categories_set = {
-        data_schema[feat]['feature_type']
+        data_schema[feat][group_attribute]
         for feat in data_schema
         if
-            'feature_type' in data_schema[feat]
+            group_attribute in data_schema[feat]
             and
             feat in dfx.columns
     }
 
     ## Initializing dictionary with results
-    feat_type_dict = {}
+    feat_list_dict = {}
 
     ## Iterating over categories and features to populate the dictionary's contents
     for cat in categories_set:
-        feat_type_dict[cat] = [
+        feat_list_dict[cat] = [
             feat
             for feat in data_schema
             if
-                'feature_type' in data_schema[feat]
+                group_attribute in data_schema[feat]
                 and
-                data_schema[feat]['feature_type'] == cat
+                data_schema[feat][group_attribute] == cat
                 and
                 feat in dfx.columns
         ]
 
 
-    return feat_type_dict
+    return feat_list_dict
 
 
 
