@@ -45,8 +45,16 @@ def modtrain_pipeline_func():
     :return:
     """
 
+    ## Saving dataset objects from the 'feateng' step of the pipeline in a dictionary data structure
+    dataset_dir = dataset_objects_dict(pipeline_pkl_feateng_local_dir)
 
-    ## Magic loop to train various models
+    ## Magic loop: iterating over various models and hyper-parameters to find best parameters
+    models_magic_loop = models_training_magic_loop(
+        predict_models_dict,
+        dataset_dir['train_x'],
+        dataset_dir['train_y'],
+        predict_model_eval_metric
+    )
 
 
     return

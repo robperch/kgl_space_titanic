@@ -228,7 +228,7 @@ def feateng_pipeline_func():
     """
 
 
-    ## Listing the objects obtained after de 'extract' step of the pipeline and saved locally
+    ## Listing the objects obtained after de 'transform' step of the pipeline and saved locally
     transform_objects = os.listdir(pipeline_pkl_transform_local_dir)
 
     ## Leaving only data objects that contain features, not labels

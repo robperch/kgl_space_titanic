@@ -24,6 +24,13 @@ from .feateng_funcs import (
 )
 
 
+from .modtrain_funcs import (
+
+    modtrain_pipeline_func,
+
+)
+
+
 
 
 
