@@ -38,6 +38,18 @@ from pkg_dir.src.parameters import *
 "--------------- Compounded functions ---------------"
 
 ## Models training pipeline function
+def modtrain_pipeline_func():
+    """
+    Models training pipeline function
+
+    :return:
+    """
+
+
+    ## Magic loop to train various models
+
+
+    return
 
 
 

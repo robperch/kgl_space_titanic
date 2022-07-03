@@ -14,6 +14,7 @@
 
 "--- Third party imports ---"
 from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import GridSearchCV
 
 "--- Local application imports ---"
 from pkg_dir.src.utils import *
@@ -96,6 +97,49 @@ def apply_data_ppl_with_tuples(features, tuples):
 
     return processed_features
 
+
+
+## Magic loop: iterating over various models and hyper-parameters to find best parameters
+def models_training_magic_loop(models_dict, train_x, train_y, eval_metric):
+    """
+    Magic loop: iterating over various models and hyper-parameters to find best parameters
+
+    :param models_dict: (dictionary) dict containing different ML models and hyper-parameters
+    :param train_x: (np.array) training data features
+    :param train_y: (np.array) training data labels
+    :return models_magic_loop: (dictionary) dict containing the best model per type based on the specified hyper-parameters
+    """
+
+
+    ## Results dictionary
+    models_magic_loop = {}
+
+    ## Magic loop
+    for mod in models_dict:
+
+        ## Scikit learn model
+        model = models_dict[mod]['model']
+
+        ## Grid search to find best model hyper-parameters
+        grid_search = GridSearchCV(
+            estimator=model,
+            param_grid=models_dict[mod]['param_grid'],
+            scoring=eval_metric,
+            return_train_score=True,
+            n_jobs=-1,
+        )
+
+        ## Executing defined grid search
+        grid_search.fit(train_x, train_y)
+
+        ## Best model found
+        models_magic_loop[mod] = {
+            'best_estimator': grid_search.best_estimator_,
+            'best_estimator_score': grid_search.best_score_,
+        }
+
+
+    return models_magic_loop
 
 
 
