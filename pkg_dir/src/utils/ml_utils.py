@@ -96,6 +96,48 @@ def dataset_objects_dict(dataset_objs_path):
 
 
 
+## Creating dictionary with list of features grouped by type
+def features_types_dict(dfx,  data_schema):
+    """
+    Creating dictionary with list of features grouped by type
+
+    :param dfx: (pd.DataFrame) df with all features
+    :param data_schema: (dictionary) data schema containing all features
+    :return feat_type_dict: (dictionary) dictionary with the type of feature as key and the list of features as value
+    """
+
+
+    ## Generating set with all different categories in data schema
+    categories_set = {
+        data_schema[feat]['feature_type']
+        for feat in data_schema
+        if
+            'feature_type' in data_schema[feat]
+            and
+            feat in dfx.columns
+    }
+
+    ## Initializing dictionary with results
+    feat_type_dict = {}
+
+    ## Iterating over categories and features to populate the dictionary's contents
+    for cat in categories_set:
+        feat_type_dict[cat] = [
+            feat
+            for feat in data_schema
+            if
+                'feature_type' in data_schema[feat]
+                and
+                data_schema[feat]['feature_type'] == cat
+                and
+                feat in dfx.columns
+        ]
+
+
+    return feat_type_dict
+
+
+
 ## Updating and saving data schema with new feature
 def update_save_data_schema(data_schema, feature_name, new_feature_data_schema, dump_path, json_name):
     """
@@ -103,7 +145,7 @@ def update_save_data_schema(data_schema, feature_name, new_feature_data_schema, 
 
     :param data_schema: (dict) full data schema containing base and new features
     :param feature_name: (string) name of the new feature
-    :param new_feature_data_schema: data schema attributes of the new feature
+    :param new_feature_data_schema: (dictionary) data schema attributes of the new feature
     :param dump_path: (string) path where the json will be stored on local machine
     :param json_name: (string) name of the json file that will be stored
     :return:

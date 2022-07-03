@@ -124,38 +124,13 @@ def data_pipeline_tuples(dfx):
 
 
     ## Segmenting features by type to process them through pipeline
-
-    ### Categorical features
-    categorical_feats = [
-        feat
-        for feat in titanicsp_full_data_schema
-        if
-        'feature_type' in titanicsp_full_data_schema[feat]
-        and
-        titanicsp_full_data_schema[feat]['feature_type'] == 'categorical'
-        and
-        feat in dfx.columns
-    ]
-
-    ### numerical features
-    numerical_feats = [
-        feat
-        for feat in titanicsp_full_data_schema
-        if
-        'feature_type' in titanicsp_full_data_schema[feat]
-        and
-        titanicsp_full_data_schema[feat]['feature_type'] == 'numerical'
-        and
-        feat in dfx.columns
-    ]
+    feat_type_dict = features_types_dict(dfx, titanicsp_full_data_schema)
 
 
-    ## Applying the data processing pipeline to the features
-
-    ### Building list of tuples to feed the data processing pipeline
+    ## Building list of tuples to feed the data processing pipeline
     data_ppl_tuples = [
-        ('categorical', categorical_ppl, categorical_feats),
-        ('numerical', numerical_ppl, numerical_feats),
+        ('categorical', categorical_ppl, feat_type_dict['categorical']),
+        ('numerical', numerical_ppl, feat_type_dict['numerical']),
     ]
 
 

@@ -71,6 +71,7 @@ from .ml_utils import (
 
     discern_between_train_and_test,
     dataset_objects_dict,
+    features_types_dict,
     update_save_data_schema,
     apply_data_ppl_with_tuples,
     models_training_magic_loop,
