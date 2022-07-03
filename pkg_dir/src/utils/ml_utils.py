@@ -10,7 +10,8 @@
 
 
 "--- Standard library imports ---"
-
+import os
+import pickle
 
 "--- Third party imports ---"
 from sklearn.compose import ColumnTransformer
@@ -49,6 +50,49 @@ def discern_between_train_and_test(obj):
 
 
     return obj_key
+
+
+
+## Saving dataset objects in a dictionary data structure
+def dataset_objects_dict(dataset_objs_path):
+    """
+    Saving dataset objects in a dictionary data structure
+
+    :param dataset_objs_path: (string) path where the dataset objects are stored locally as pickles
+    :return dataset_dir: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    """
+
+
+    ## List of locally saved pickles
+    objects = os.listdir(dataset_objs_path)
+
+    ## Dictionary where the results will be stored
+    dataset_dir = {}
+
+    ## Iterating over every dataset object, reading it, and saving it in the dictionary
+    for obj in objects:
+
+        ## Key to identify the object
+        if 'train_x' in obj:
+            key = 'train_x'
+        elif 'train_y' in obj:
+            key = 'train_y'
+        elif 'test_x' in obj:
+            key = 'test_x'
+        elif 'test_y' in obj:
+            key = 'test_y'
+        else:
+            continue
+
+        ## Reading the object's contents
+        with open(dataset_objs_path + obj, 'rb') as obj_content:
+            dfx = pickle.load(obj)
+
+        ## Saving the object's contents in a dictionary
+        dataset_dir[key] = dfx
+
+
+    return dataset_dir
 
 
 
