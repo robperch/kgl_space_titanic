@@ -86,7 +86,7 @@ def dataset_objects_dict(dataset_objs_path):
 
         ## Reading the object's contents
         with open(dataset_objs_path + obj, 'rb') as obj_content:
-            dfx = pickle.load(obj)
+            dfx = pickle.load(obj_content)
 
         ## Saving the object's contents in a dictionary
         dataset_dir[key] = dfx
