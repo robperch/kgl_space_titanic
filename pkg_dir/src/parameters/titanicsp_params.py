@@ -54,7 +54,7 @@ titanicsp_base_data_schema = {
             'False': False,
             'True': True,
         },
-        'feature_type': 'boolean',
+        'feature_type': 'categorical',
         'model_relevant': True,
     },
 
@@ -90,7 +90,7 @@ titanicsp_base_data_schema = {
             'False': False,
             'True': True,
         },
-        'feature_type': 'boolean',
+        'feature_type': 'categorical',
         'model_relevant': True,
     },
 
@@ -135,11 +135,11 @@ titanicsp_base_data_schema = {
     },
 
     'Name': {
-        'relevant': True,
+        'relevant': False,
         'clean_col_name': 'Name',
         'data_type': 'str',
         'feature_type': 'categorical',
-        'model_relevant': True,
+        'model_relevant': False,
     },
 
     'Transported': {
