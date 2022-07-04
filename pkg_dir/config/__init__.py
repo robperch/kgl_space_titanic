@@ -38,6 +38,7 @@ from .config import (
     pipeline_pkl_extract_aws_key,
     pipeline_pkl_transform_aws_key,
     pipeline_pkl_feateng_aws_key,
+    pipeline_pkl_modtrain_aws_key,
 
 )
 

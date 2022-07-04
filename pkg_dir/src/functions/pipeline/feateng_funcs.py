@@ -217,7 +217,6 @@ def save_feateng_aws_df_pkl(transform_obj):
     """
 
 
-    ## Saving labels dataframe as a pickle locally
     file_path = os.path.join(
         pipeline_pkl_feateng_local_dir,
         pipeline_pkl_feateng_name
