@@ -66,6 +66,7 @@ titanicsp_base_data_schema = {
         'data_type': 'str',
         'feature_type': 'categorical',
         'model_relevant': False,
+        'imputation_strategy': 'custom',
     },
 
     'Destination': {

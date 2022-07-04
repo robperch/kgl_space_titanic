@@ -14,6 +14,7 @@ import os
 import pickle
 
 "--- Third party imports ---"
+from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import GridSearchCV
 
@@ -164,12 +165,47 @@ def update_save_data_schema(data_schema, feature_name, new_feature_data_schema, 
 
 
 
+## Apply imputation of feature's missing values
+def apply_imputations(features, feat_imputation_dict, missing_values, fill_value):
+    """
+    Apply imputation of feature's missing values
+
+    :param features: (pd.DataFrame) features with the missing values that will be imputed
+    :param feat_imputation_dict: (dictionary) dict with the imputation strategy as key and the list of features for that key as values
+    :param missing_values: (int, float, str, np.nan, None or pandas.NA) the placeholder for the missing values. All occurrences of missing_values will be imputed. For pandas’ dataframes with nullable integer dtypes with missing values, missing_values can be set to either np.nan or pd.NA.
+    :param fill_value: (str or numerical value) when strategy == “constant”, fill_value is used to replace all occurrences of missing_values. If left to the default, fill_value will be 0 when imputing numerical data and “missing_value” for strings or object data types.
+    :return features: (pd.DataFrame or similar) features with missing values imputed
+    """
+
+
+    ## Eliminating from the dictionary the features that have a 'custom' imputation strategy
+    if 'custom' in {imp_stg for imp_stg in feat_imputation_dict}:
+        feat_imputation_dict.pop('custom')
+
+    ## Applying imputations
+    for imp_stg in feat_imputation_dict:
+
+        ## Defining imputer
+        imputer = SimpleImputer(
+            missing_values=missing_values,
+            strategy=imp_stg,
+            fill_value=fill_value,
+        )
+
+        ## Applying imputation
+        features.loc[:, feat_imputation_dict[imp_stg]] = imputer.fit_transform(features.loc[:, feat_imputation_dict[imp_stg]])
+
+
+    return features
+
+
+
 ## Applying the data processing pipeline to the features based on provided tuples
 def apply_data_ppl_with_tuples(features, tuples):
     """
     Applying the data processing pipeline to the features based on provided tuples
 
-    :param features: (pd.DataFrame) features to be processed
+    :param features: (pd.DataFrame or similar) features to be processed
     :param tuples: (list) list containing the tuples needed for sklearn's ColumnTransformer
     :return processed_features: (np.array) array with features after being processed through the data pipeline
     """

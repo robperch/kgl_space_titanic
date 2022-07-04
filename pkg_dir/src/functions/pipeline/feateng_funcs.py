@@ -14,6 +14,7 @@ import pickle
 import os
 
 "--- Third party imports ---"
+import numpy as np
 
 "--- Local application imports ---"
 from pkg_dir.config import *
@@ -126,13 +127,16 @@ def imput_feature_values(dfx):
     ## Segmenting features by type to process them through pipeline
     feat_imputation_dict = features_list_dict(dfx, titanicsp_full_data_schema, 'imputation_strategy')
 
+    ## Applying standard imputation
+    dfx = apply_imputations(dfx, feat_imputation_dict, np.nan, 0)
 
-    return
+
+    return dfx
 
 
 
 ## Building list of tuples to feed the data processing pipeline
-def data_pipeline_tuples(dfx):
+def processing_data_through_pipeline(dfx):
     """
     Building list of tuples to feed the data processing pipeline
 
@@ -144,15 +148,17 @@ def data_pipeline_tuples(dfx):
     ## Segmenting features by type to process them through pipeline
     feat_type_dict = features_list_dict(dfx, titanicsp_full_data_schema, 'feature_type')
 
-
     ## Building list of tuples to feed the data processing pipeline
     data_ppl_tuples = [
         ('categorical', categorical_ppl, feat_type_dict['categorical']),
         ('numerical', numerical_ppl, feat_type_dict['numerical']),
     ]
 
+    ### Applying pipeline based on provided tuples
+    dfx = apply_data_ppl_with_tuples(dfx, data_ppl_tuples)
 
-    return data_ppl_tuples
+
+    return dfx
 
 
 
@@ -167,15 +173,11 @@ def feature_engineering(dfx):
 
 
     ## Inputting nan values
+    dfx = imput_feature_values(dfx)
 
 
-    ## Data pipeline to prepare features for the model
-
-    ### Building list of tuples to feed the data processing pipeline
-    data_ppl_tuples = data_pipeline_tuples(dfx)
-
-    ### Applying pipeline based on provided tuples
-    dfx = apply_data_ppl_with_tuples(dfx, data_ppl_tuples)
+    ## Building list of tuples to feed the data processing pipeline
+    dfx = processing_data_through_pipeline(dfx)
 
 
     return dfx
