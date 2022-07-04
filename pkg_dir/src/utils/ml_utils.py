@@ -60,7 +60,7 @@ def dataset_objects_dict(dataset_objs_path):
     Saving dataset objects in a dictionary data structure
 
     :param dataset_objs_path: (string) path where the dataset objects are stored locally as pickles
-    :return dataset_dir: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :return dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
     """
 
 
@@ -68,7 +68,7 @@ def dataset_objects_dict(dataset_objs_path):
     objects = os.listdir(dataset_objs_path)
 
     ## Dictionary where the results will be stored
-    dataset_dir = {}
+    dataset_dict = {}
 
     ## Iterating over every dataset object, reading it, and saving it in the dictionary
     for obj in objects:
@@ -90,10 +90,10 @@ def dataset_objects_dict(dataset_objs_path):
             dfx = pickle.load(obj_content)
 
         ## Saving the object's contents in a dictionary
-        dataset_dir[key] = dfx
+        dataset_dict[key] = dfx
 
 
-    return dataset_dir
+    return dataset_dict
 
 
 
