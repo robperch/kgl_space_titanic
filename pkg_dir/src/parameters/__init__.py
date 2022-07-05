@@ -14,6 +14,8 @@ from .titanicsp_params import (
 
 from .titanicsp_params_ml import (
 
+    test_split_size,
+    random_state_split,
     categorical_ppl,
     numerical_ppl,
     predict_models_dict,

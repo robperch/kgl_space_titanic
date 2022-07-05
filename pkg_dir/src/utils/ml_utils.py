@@ -17,10 +17,10 @@ import pickle
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
 
 "--- Local application imports ---"
 from pkg_dir.src.utils import *
-
 
 
 
@@ -74,14 +74,26 @@ def dataset_objects_dict(dataset_objs_path):
     for obj in objects:
 
         ## Key to identify the object
-        if 'train_x' in obj:
-            key = 'train_x'
-        elif 'train_y' in obj:
-            key = 'train_y'
-        elif 'test_x' in obj:
-            key = 'test_x'
-        elif 'test_y' in obj:
-            key = 'test_y'
+
+        ### Training data
+        if 'X_train' in obj:
+            key = 'X_train'
+        elif 'y_train' in obj:
+            key = 'y_train'
+
+        ### Validation data
+        elif 'X_val' in obj:
+            key = 'X_val'
+        elif 'y_val' in obj:
+            key = 'y_val'
+
+        ### Test data
+        elif 'X_test' in obj:
+            key = 'X_test'
+        elif 'y_test' in obj:
+            key = 'y_test'
+
+        ### Unidentified data
         else:
             continue
 
@@ -94,6 +106,76 @@ def dataset_objects_dict(dataset_objs_path):
 
 
     return dataset_dict
+
+
+
+## Saving locally the dataset objects as pickles
+def save_dataset_objects_locally(dataset_dict, local_path, object_prefix):
+    """
+    Saving locally the dataset objects as pickles
+
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :param local_path: (string) local path where the pickles will be saved
+    :param object_prefix: (string) text preceding the object key in the dict (usually the pipeline section of the process)
+    :return None:
+    """
+
+
+    ## Iterating over every dataset object and saving it as a pickle
+    for ds_key in dataset_dict:
+
+        df_obj = dataset_dict[ds_key]
+
+        pkl_path = os.path.join(
+            local_path,
+            object_prefix,
+        ) + '_' + ds_key + '.pkl'
+
+        pickle.dump(df_obj, open(pkl_path, 'wb'))
+
+
+    return
+
+
+
+## Saving in the cloud the dataset objects that were locally saved as pickles
+def save_dataset_objects_in_cloud(dataset_dict, local_path, cloud_provider, base_path, cloud_path, object_prefix):
+    """
+    Saving in the cloud the dataset objects that were locally saved as pickles
+
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :param local_path: (string) local path where the pickles will be saved
+    :param cloud_provider: (string) name of the cloud provider that will be used to store the results (options: 'aws', 'gcp', 'azure')
+    :param base_path: (string) name of the base path (e.g. bucket name) where the results will be stored
+    :param cloud_path: (string) path on top of the base path where the object will be located in the cloud
+    :param object_prefix: (string) text preceding the object key in the dict (usually the pipeline section of the process)
+    :return None:
+    """
+
+
+    ## Selecting the cloud provider
+    if cloud_provider == 'aws':
+
+        ## Iterating over every dataset object and saving it as a pickle
+        for ds_key in dataset_dict:
+
+            local_pkl_path = os.path.join(
+                local_path,
+                object_prefix,
+            ) + '_' + ds_key + '.pkl'
+
+            object_name = os.path.join(
+                cloud_path,
+                object_prefix,
+            ) + '_' + ds_key + '.pkl'
+
+            upload_file_to_s3(local_pkl_path, base_path, object_name)
+
+    else:
+        raise Exception('Cloud provider not identified')
+
+
+    return
 
 
 
@@ -165,6 +247,47 @@ def update_save_data_schema(data_schema, feature_name, new_feature_data_schema, 
 
 
 
+
+
+"----------------------------------------------------------------------------------------------------------------------"
+############### Data transformation functions ##########################################################################
+"----------------------------------------------------------------------------------------------------------------------"
+
+## Splitting data in train and test (or validate)
+def split_data_train_test(X_train, y_train, test_size, train_size=None, random_state=123):
+    """
+    ## Splitting data in train and test (or validate)
+
+    :param data: (pd.Dataframe or similar) Allowed inputs are lists, numpy arrays, scipy-sparse matrices or pandas dataframes.
+    :param test_size: (float or int) If float, should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the test split. If int, represents the absolute number of test samples. If None, the value is set to the complement of the train size. If train_size is also None, it will be set to 0.25.
+    :param train_size: (float or int) If float, should be between 0.0 and 1.0 and represent the proportion of the dataset to include in the train split. If int, represents the absolute number of train samples. If None, the value is automatically set to the complement of the test size.
+    :param random_state: (int) Controls the shuffling applied to the data before applying the split. Pass an int for reproducible output across multiple function calls.
+    :return X_train: (pd.Dataframe or similar) training data features
+    :return y_train: (pd.Dataframe or similar) training data labels
+    :return X_test: (pd.Dataframe or similar) test (or validation) data features
+    :return y_test: (pd.Dataframe or similar) test (or validation) data labels (or validate)
+    """
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_train,
+        y_train,
+        test_size=test_size,
+        train_size=None,
+        random_state=random_state,
+    )
+
+
+    return X_train, X_test, y_train, y_test
+
+
+
+
+
+"----------------------------------------------------------------------------------------------------------------------"
+############### Feature engineering functions ##########################################################################
+"----------------------------------------------------------------------------------------------------------------------"
+
+
 ## Apply imputation of feature's missing values
 def apply_imputations(features, feat_imputation_dict, missing_values, fill_value):
     """
@@ -220,6 +343,13 @@ def apply_data_ppl_with_tuples(features, tuples):
 
     return processed_features
 
+
+
+
+
+"----------------------------------------------------------------------------------------------------------------------"
+############### Models training functions ##############################################################################
+"----------------------------------------------------------------------------------------------------------------------"
 
 
 ## Magic loop: iterating over various models and hyper-parameters to find best parameters

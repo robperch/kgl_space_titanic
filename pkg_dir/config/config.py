@@ -101,12 +101,16 @@ pipeline_pkl_predict_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl
 
 
 "----------------------------------------------------------------------------------------------------------------------"
-############################## AWS parameters ##########################################################################
+############################## Cloud parameters ##########################################################################
 "----------------------------------------------------------------------------------------------------------------------"
 
 
+## Identifier for the project's cloud provider
+cloud_provider = 'aws'
+
 ## S3 parameters
 
+## Name of the bucket where the results will be stored
 base_bucket_name = 'titanic-spaceship-aws-bucket'
 
 ### Pipeline pickles

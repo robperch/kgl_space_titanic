@@ -33,6 +33,13 @@ from sklearn.tree import DecisionTreeClassifier
 "----------------------------------------------------------------------------------------------------------------------"
 
 
+"--------------- Data transformation ---------------"
+
+test_split_size = 0.2
+random_state_split = 123
+
+
+
 "--------------- Column Transformer pipeline ---------------"
 
 ## Categorical pipeline
