@@ -38,17 +38,17 @@ def pipeline_main_func():
     """
 
 
-    ## Extract pipeline function
-    extract_pipeline_func()
-
+    # ## Extract pipeline function
+    # extract_pipeline_func()
+    #
     ## Transform pipeline function
     transform_pipeline_func()
-
-    ## Feature engineering pipeline function
-    feateng_pipeline_func()
-
-    ## Models training pipeline function
-    modtrain_pipeline_func()
+    #
+    # ## Feature engineering pipeline function
+    # feateng_pipeline_func()
+    #
+    # ## Models training pipeline function
+    # modtrain_pipeline_func()
 
 
     return
