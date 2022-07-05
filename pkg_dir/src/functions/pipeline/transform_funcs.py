@@ -56,129 +56,94 @@ def set_id_feature_as_index(dfx):
 
 
 
-## Saving the transform pickles locally
-def save_transform_local_df_pkl(obj_key, dfx):
+## Separating features from labels in the training dataset
+def split_features_and_labels(Xy_train):
     """
-    Saving the transform pickles locally
+    Separating features from labels in the training dataset
 
-    :param obj_key: (string) identifier to differentiate if it's the training or testing dataset
-    :param dfx: (pd.DataFrame) dataframe with either the test or train info
-    :return None:
-    """
-
-
-    ## Differentiate between the transform datasets (train or test)
-    if obj_key == 'train':
-
-        ## Saving features and labels separately
-
-        ### Labels dataframe
-        df_labels = dfx.loc[:, 'label'].copy()
-
-        ### Saving labels dataframe as a pickle locally
-        pkl_path = os.path.join(
-            pipeline_pkl_transform_local_dir,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_y.pkl'
-        pickle.dump(df_labels, open(pkl_path, 'wb'))
-
-        ### Features dataframe
-        df_features = dfx.drop('label', axis=1)
-
-        ### Saving features dataframe as a pickle locally
-        pkl_path = os.path.join(
-            pipeline_pkl_transform_local_dir,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_x.pkl'
-        pickle.dump(df_features, open(pkl_path, 'wb'))
-
-
-    elif obj_key == 'test':
-
-        ## Saving test dataframe locally
-        pkl_path = os.path.join(
-            pipeline_pkl_transform_local_dir,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_x.pkl'
-        pickle.dump(dfx, open(pkl_path, 'wb'))
-
-
-    return
-
-
-
-## Saving the transform pickles locally
-def save_transform_aws_df_pkl(obj_key):
-    """
-    Saving the transform pickles locally
-
-    :param obj_key: (string) identifier to differentiate if it's the training or testing dataset
-    :return None:
+    :param Xy_train: (pd.DataFrame or similar) training dataset mixing features and labels
+    :return X_train: (pd.DataFrame or similar) training dataset features only
+    :return y_train: (pd.DataFrame or similar) training dataset labels only
     """
 
 
-    ## Differentiate between the transform datasets (train or test)
-    if obj_key == 'train':
+    ## Name of the label feature
+    label_name = [
+        titanicsp_full_data_schema[feat]['clean_col_name']
+        for feat in titanicsp_full_data_schema
+        if
+        'predict_label' in titanicsp_full_data_schema[feat]
+        and
+        titanicsp_full_data_schema[feat]['predict_label']
+    ][0]
 
-        ## Saving features
+    ## Isolating labels
+    y_train = Xy_train.loc[:, [label_name]].copy()
 
-        ### Function parameters
-
-        file_path = os.path.join(
-            pipeline_pkl_transform_local_dir,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_x.pkl'
-
-        object_name = os.path.join(
-            pipeline_pkl_transform_aws_key,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_x.pkl'
-
-
-        ### Uploading file
-
-        upload_file_to_s3(file_path, base_bucket_name, object_name)
+    ## Isolating features
+    X_train = Xy_train.drop(label_name, axis=1)
 
 
-        ## Saving labels
-
-        ### Function parameters
-
-        file_path = os.path.join(
-            pipeline_pkl_transform_local_dir,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_y.pkl'
-
-        object_name = os.path.join(
-            pipeline_pkl_transform_aws_key,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_y.pkl'
-
-
-        ### Uploading file
-
-        upload_file_to_s3(file_path, base_bucket_name, object_name)
+    return X_train, y_train
 
 
 
-    elif obj_key == 'test':
+## Updating the dataset objects dictionary with the additional data
+def update_dataset_objects_dict(dataset_dict, X_train, X_val, y_train, y_val):
+    """
+    Updating the dataset objects dictionary with the additional data
 
-        ## Function parameters
-
-        file_path = os.path.join(
-            pipeline_pkl_transform_local_dir,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_x.pkl'
-
-        object_name = os.path.join(
-            pipeline_pkl_transform_aws_key,
-            pipeline_pkl_transform_name
-        ) + '_' + obj_key + '_x.pkl'
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :param X_train: (pd.DataFrame or similar) features of the training dataset
+    :param X_val: (pd.DataFrame or similar) features of the validation dataset
+    :param y_train: (pd.DataFrame or similar) labels of the training dataset
+    :param y_val: (pd.DataFrame or similar) labels of the validation dataset
+    :return dataset_dict: (dictionary) dataset dictionary with updated elements derived from the training dataset
+    """
 
 
-        ## Uploading file
+    ## Overwriting original dataset object (mixture between features and labels) for only training labels
+    dataset_dict.update({'y_train': y_train})
 
-        upload_file_to_s3(file_path, base_bucket_name, object_name)
+    ## Adding new objects
+    dataset_dict['X_train'] = X_train
+    dataset_dict['X_val'] = X_val
+    dataset_dict['y_val'] = y_val
+
+
+    return dataset_dict
+
+
+
+## Saving module results
+def save_transform_results(dataset_dict):
+    """
+    Saving module results
+
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :return:
+    """
+
+
+    ## Creating directory for local pickles if not existent
+    create_directory_if_nonexistent(pipeline_pkl_transform_local_dir)
+
+    ## Saving locally the dataset objects as pickles
+    save_dataset_objects_locally(
+        dataset_dict,
+        pipeline_pkl_transform_local_dir,
+        pipeline_pkl_transform_name
+    )
+
+    ## Saving in the cloud the dataset objects that were locally saved as pickles
+    save_dataset_objects_in_cloud(
+        dataset_dict,
+        pipeline_pkl_transform_local_dir,
+        cloud_provider,
+        base_bucket_name,
+        pipeline_pkl_transform_aws_key,
+        pipeline_pkl_transform_name
+    )
 
 
     return
@@ -196,34 +161,41 @@ def transform_pipeline_func():
     """
 
 
-    ## Listing the objects obtained after de 'extract' step of the pipeline and saved locally
-    extract_objects = os.listdir(pipeline_pkl_extract_local_dir)
+    ## Saving dataset objects in a dictionary data structure
+    dataset_dict = dataset_objects_dict(pipeline_pkl_extract_local_dir)
 
+    ## Original dataset objects
+    dataset_objs = [key for key in dataset_dict]
 
     ## Iterating over every extract object and applying the wrangling functions
-    for extract_obj in extract_objects:
-
-        ## Setting key to identify the object
-        obj_key = discern_between_train_and_test(extract_obj)
-
-        ## Reading the object's content from the locally saved pickle
-        with open(pipeline_pkl_extract_local_dir + extract_obj, 'rb') as object:
-            dfx = pickle.load(object)
+    for dataset_obj in dataset_objs:
 
         ## Apply data wrangling functions based on a predefined dataschema
-        dfx = data_wrangling_schema_functions(dfx, titanicsp_base_data_schema)
+        dfx = data_wrangling_schema_functions(dataset_dict[dataset_obj], titanicsp_base_data_schema)
 
         ## Setting the id feature as the index
         dfx = set_id_feature_as_index(dfx)
 
-        ## Creating directory for local pickles
-        create_directory_if_nonexistent(pipeline_pkl_transform_local_dir)
+        ## Splitting the training dataset in training and validation (Note: the dataset object with the key 'y_train' contains both labels and features)
+        if dataset_obj == 'y_train':
 
-        ## Saving the transform pickles locally
-        save_transform_local_df_pkl(obj_key, dfx)
+            ## Separating features from labels in the training dataset
+            X_train, y_train = split_features_and_labels(dfx)
 
-        ## Saving object a AWS bucket
-        save_transform_aws_df_pkl(obj_key)
+            ## Splitting train into train and validation
+            X_train, X_val, y_train, y_val = split_data_train_test(X_train, y_train, test_split_size, train_size=None, random_state=random_state_split)
+
+            ## Updating the dataset objects dictionary with the additional data
+            dataset_dict = update_dataset_objects_dict(dataset_dict, X_train, X_val, y_train, y_val)
+
+        elif dataset_obj == 'X_test':
+
+            ## Updating the dataset dictionary with results
+            dataset_dict.update({'X_test': dfx})
+
+
+    ## Saving module results
+    save_transform_results(dataset_dict)
 
 
     return
