@@ -92,6 +92,12 @@ def save_extract_local_df_pkl():
         ## Condition to skip unnecessary file
         if file != 'sample_submission.csv':
 
+            ## Data prefix used in pickle name
+            if 'train' in file:
+                data_prefix = '_Xy_'
+            elif 'test' in file:
+                data_prefix = '_X_'
+
             ## Reading csv file as pandas dataframe
             dfx = pd.read_csv(os.path.join(dataset_local_files, file))
 
@@ -99,7 +105,7 @@ def save_extract_local_df_pkl():
             pickle.dump(
                 dfx,
                 open(
-                    os.path.join(pipeline_pkl_extract_local_dir, pipeline_pkl_extract_name) + '_' + file.split(sep='.')[0] + '.pkl',
+                    os.path.join(pipeline_pkl_extract_local_dir, pipeline_pkl_extract_name) + data_prefix + file.split(sep='.')[0] + '.pkl',
                     'wb'
                 )
             )
