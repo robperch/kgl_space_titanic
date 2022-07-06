@@ -148,7 +148,7 @@ def save_transform_results(dataset_dict):
     Saving module results
 
     :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
-    :return:
+    :return None:
     """
 
 

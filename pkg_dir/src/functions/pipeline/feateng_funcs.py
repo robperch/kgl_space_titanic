@@ -234,6 +234,41 @@ def save_feateng_aws_df_pkl(transform_obj):
 
 
 
+## Saving module results
+def save_feateng_results(dataset_dict):
+    """
+    Saving module results
+
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :return None:
+    """
+
+
+    ## Creating directory for local pickles if not existent
+    create_directory_if_nonexistent(pipeline_pkl_feateng_local_dir)
+
+    ## Saving locally the dataset objects as pickles
+    save_dataset_objects_locally(
+        dataset_dict,
+        pipeline_pkl_feateng_local_dir,
+        pipeline_pkl_feateng_name,
+    )
+
+    ## Saving in the cloud the dataset objects that were locally saved as pickles
+    save_dataset_objects_in_cloud(
+        dataset_dict,
+        pipeline_pkl_feateng_local_dir,
+        cloud_provider,
+        base_bucket_name,
+        pipeline_pkl_feateng_aws_key,
+        pipeline_pkl_feateng_name,
+    )
+
+
+    return
+
+
+
 "--------------- Compounded functions ---------------"
 
 ## Feature engineering pipeline function
@@ -245,23 +280,22 @@ def feateng_pipeline_func():
     """
 
 
-    ## Listing the objects obtained after de 'transform' step of the pipeline and saved locally
-    transform_objects = os.listdir(pipeline_pkl_transform_local_dir)
+    ## Saving dataset objects in a dictionary data structure
+    dataset_dict = dataset_objects_dict(pipeline_pkl_transform_local_dir)
 
     ## Leaving only data objects that contain features, not labels
-    transform_objects = [
+    transform_features_datasets = [
         tr_obj
-        for tr_obj in transform_objects
-        if '_x.' in tr_obj
+        for tr_obj in dataset_dict
+        if 'X_' in tr_obj
     ]
 
 
     ## Iterating over every extract object and applying the wrangling functions
-    for transform_obj in transform_objects:
+    for transform_obj in transform_features_datasets:
 
-        ## Reading the object's content from the locally saved pickle
-        with open(pipeline_pkl_transform_local_dir + transform_obj, 'rb') as obj:
-            dfx = pickle.load(obj)
+        ## Saving the dataset object in variable
+        dfx = dataset_dict[transform_obj]
 
         ## Adding new features
         dfx = adding_new_features(dfx)
@@ -272,30 +306,12 @@ def feateng_pipeline_func():
         ## Applying feature engineering functions
         dfx = feature_engineering(dfx)
 
-        ## Creating directory for local pickles
-        create_directory_if_nonexistent(pipeline_pkl_feateng_local_dir)
-
-        ## Saving results locally as pickles
-        save_feateng_local_df_pkl(transform_obj, dfx)
-
-        ## Saving results in AWS S3 as pickles
-        save_feateng_aws_df_pkl(transform_obj)
+        ## Updating the dataset object stored in the dataset dictionary with result obtained
+        dataset_dict.update({transform_obj: dfx})
 
 
-    ## Saving the label's data that didn't go through the feature engineering pipeline
-
-    ### Name of the label's object
-    labels_obj = 'trans_train_y.pkl'
-
-    ### Reading the label's content from the locally saved pickle
-    with open(pipeline_pkl_transform_local_dir + labels_obj, 'rb') as obj:
-        dfx = pickle.load(obj)
-
-    ### Local pickle
-    save_feateng_local_df_pkl(labels_obj, dfx)
-
-    ### AWS bucket
-    save_feateng_aws_df_pkl(labels_obj)
+    ## Saving module results
+    save_feateng_results(dataset_dict)
 
 
     return
