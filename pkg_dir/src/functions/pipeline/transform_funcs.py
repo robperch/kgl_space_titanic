@@ -10,8 +10,7 @@
 
 
 "--- Standard library imports ---"
-import pickle
-import os
+import random
 
 "--- Third party imports ---"
 
@@ -115,6 +114,34 @@ def update_dataset_objects_dict(dataset_dict, X_train, X_val, y_train, y_val):
 
 
 
+## Adding test dummy labels
+def add_test_labels(X_test, dataset_dict):
+    """
+    Adding test dummy labels
+
+    :param X_test: (pd.DataFrame or similar) test dataset features
+    :param dataset_dict: (dictionary) dataset dictionary with only features for the test dataset
+    :return dataset_dict: (dictionary) dataset dictionary with a new element containing random labels for the test dataset (the main objective is to keep the indices available for the final results)
+    """
+
+
+    ## Adding column with random values
+    X_test['dummy_label'] = [
+        bool(random.getrandbits(1))
+        for i in range(1, X_test.shape[0] + 1)
+    ]
+
+    ## Leaving only the index and the new dummy label column
+    y_test = X_test.loc[:, ['dummy_label']].copy()
+
+    ## Adding this new element to the dataset dictionary
+    dataset_dict['y_test'] = y_test
+
+
+    return dataset_dict
+
+
+
 ## Saving module results
 def save_transform_results(dataset_dict):
     """
@@ -192,6 +219,9 @@ def transform_pipeline_func():
 
             ## Updating the dataset dictionary with results
             dataset_dict.update({'X_test': dfx})
+
+            ## Adding test dummy labels
+            dataset_dict = add_test_labels(dfx, dataset_dict)
 
 
     ## Saving module results
