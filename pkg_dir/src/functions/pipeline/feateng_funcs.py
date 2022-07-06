@@ -184,56 +184,6 @@ def feature_engineering(dfx):
 
 
 
-## Saving the feature engineering pickles locally
-def save_feateng_local_df_pkl(transform_obj, dfx):
-    """
-    Saving the feature engineering pickles locally
-
-    :param transform_obj: (string) name of the transform object that was used as a base for the feature engineering process
-    :param dfx: (pd.DataFrame) df with data after the feature engineering process
-    :return None:
-    """
-
-
-    ## Saving labels dataframe as a pickle locally
-    pkl_path = os.path.join(
-        pipeline_pkl_feateng_local_dir,
-        pipeline_pkl_feateng_name
-    ) + transform_obj[5:]
-    pickle.dump(dfx, open(pkl_path, 'wb'))
-
-
-    return
-
-
-
-## Saving the feature engineering pickles is an AWS bucket
-def save_feateng_aws_df_pkl(transform_obj):
-    """
-    Saving the feature engineering pickles is an AWS bucket
-
-    :param transform_obj: (string) name of the transform object that was used as a base for the feature engineering process
-    :return None:
-    """
-
-
-    file_path = os.path.join(
-        pipeline_pkl_feateng_local_dir,
-        pipeline_pkl_feateng_name
-    ) + transform_obj[5:]
-
-    object_name = os.path.join(
-        pipeline_pkl_feateng_aws_key,
-        pipeline_pkl_feateng_name
-    ) + transform_obj[5:]
-
-    upload_file_to_s3(file_path, base_bucket_name, object_name)
-
-
-    return
-
-
-
 ## Saving module results
 def save_feateng_results(dataset_dict):
     """
