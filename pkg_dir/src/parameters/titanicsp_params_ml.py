@@ -62,8 +62,9 @@ numerical_ppl = Pipeline(
 
 predict_models_dict = {
 
-    "random_forest": {
-        "model": RandomForestClassifier(
+    'random_forest': {
+        'short_name': 'rand_f',
+        'model': RandomForestClassifier(
             max_features=10,
             n_estimators=10,
             max_leaf_nodes=50,
@@ -71,18 +72,19 @@ predict_models_dict = {
             n_jobs=-1,
             random_state=1111
         ),
-        "param_grid": {
-            "n_estimators": [5, 7],
-            "min_samples_leaf": [10],
-            "criterion": ['gini']
+        'param_grid': {
+            'n_estimators': [5, 7],
+            'min_samples_leaf': [10],
+            'criterion': ['gini']
         }
     },
 
-    "decision_tree": {
-        "model": DecisionTreeClassifier(
+    'decision_tree': {
+        'short_name': 'dec_t',
+        'model': DecisionTreeClassifier(
             random_state=2222
         ),
-        "param_grid": {
+        'param_grid': {
             'max_depth': [10, 15],
             'min_samples_leaf': [5]
         }
