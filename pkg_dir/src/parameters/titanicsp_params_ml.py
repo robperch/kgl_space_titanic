@@ -76,7 +76,8 @@ predict_models_dict = {
             'n_estimators': [5, 7],
             'min_samples_leaf': [10],
             'criterion': ['gini']
-        }
+        },
+        'class_thresh': 0.4,
     },
 
     'decision_tree': {
@@ -87,7 +88,8 @@ predict_models_dict = {
         'param_grid': {
             'max_depth': [10, 15],
             'min_samples_leaf': [5]
-        }
+        },
+        'class_thresh': 0.5,
     },
 
 }
