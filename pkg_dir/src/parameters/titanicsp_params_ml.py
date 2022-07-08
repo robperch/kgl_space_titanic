@@ -63,7 +63,7 @@ numerical_ppl = Pipeline(
 predict_models_dict = {
 
     'random_forest': {
-        'short_name': 'rand_f',
+        'alias': 'rand_f',
         'model': RandomForestClassifier(
             max_features=10,
             n_estimators=10,
@@ -81,7 +81,7 @@ predict_models_dict = {
     },
 
     'decision_tree': {
-        'short_name': 'dec_t',
+        'alias': 'dec_t',
         'model': DecisionTreeClassifier(
             random_state=2222
         ),
