@@ -31,6 +31,13 @@ from .modtrain_funcs import (
 )
 
 
+from .modevalsel_funcs import (
+
+    modevalsel_pipeline_func,
+
+)
+
+
 
 
 
