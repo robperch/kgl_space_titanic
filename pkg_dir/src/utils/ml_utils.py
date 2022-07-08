@@ -14,6 +14,7 @@ import os
 import pickle
 
 "--- Third party imports ---"
+import numpy as np
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import GridSearchCV
@@ -387,12 +388,67 @@ def models_training_magic_loop(models_dict, train_x, train_y, eval_metric):
 
         ## Best model found
         models_magic_loop[mod] = {
+            'estimator_alias': models_dict[mod]['alias'],
+            'estimator_class_thresh': models_dict[mod]['class_thresh'],
             'best_estimator': grid_search.best_estimator_,
             'best_estimator_score': grid_search.best_score_,
         }
 
 
     return models_magic_loop
+
+
+
+
+
+"----------------------------------------------------------------------------------------------------------------------"
+############### Models evaluation/selection functions ##################################################################
+"----------------------------------------------------------------------------------------------------------------------"
+
+
+## Add the trained models' predictions for the validation labels
+def add_validation_predictions_per_model(dataset_dict, trained_models_dict):
+    """
+    Add the trained models' predictions for the validation labels
+
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :param trained_models_dict: (dictionary) dict containing the best trained models per type based on the specified hyper-parameters
+    :return dataset_dict: (dictionary) dict with the 'y_val' object updated to contain the prediction probabilities and labels of the trained models
+    """
+
+
+    ## Saving the validation dataset objects in variables
+    X_val = dataset_dict['X_val']
+    y_val = dataset_dict['y_val']
+
+    ## Renaming the validation levels to clarify that they're the ground truth
+    y_val.rename(columns={'label': 'true_labels'}, inplace=True)
+
+
+    ## Iterating over every model to obtain their predictions
+    for mdl in trained_models_dict:
+
+        ## Trained model attributes
+        model = trained_models_dict[mdl]['best_estimator']
+        model_alias = trained_models_dict[mdl]['estimator_alias']
+        model_class_thresh = trained_models_dict[mdl]['estimator_class_thresh']
+
+        ## Adding the prediction probabilities of the positive class to the validation results
+        y_val[model_alias + '_pos_prob'] = model.predict_proba(X_val)[:, 1]
+
+        ## Adding the prediction labels based on the classification threshold
+        y_val[model_alias + '_label'] = np.where(
+            y_val[model_alias + '_pos_prob'] >= model_class_thresh,
+            1,
+            0
+        )
+
+
+    ## Saving the updated validation object in the dataset dictionary
+    dataset_dict.update({'y_val': y_val})
+
+
+    return dataset_dict
 
 
 

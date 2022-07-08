@@ -79,6 +79,7 @@ from .ml_utils import (
     apply_imputations,
     apply_data_ppl_with_tuples,
     models_training_magic_loop,
+    add_validation_predictions_per_model,
 
 )
 
