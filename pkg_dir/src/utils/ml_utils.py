@@ -15,6 +15,7 @@ import pickle
 
 "--- Third party imports ---"
 import numpy as np
+import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import GridSearchCV
@@ -449,6 +450,65 @@ def add_validation_predictions_per_model(dataset_dict, trained_models_dict):
 
 
     return dataset_dict
+
+
+
+## Generate a summary performance metrics table for every model with the validation dataset
+def validation_models_performance_table(dataset_dict, trained_models_dict, model_eval_metrics):
+    """
+    Generate a summary performance metrics table for every model with the validation dataset
+
+    :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
+    :param trained_models_dict: (dictionary) dict containing the best trained models per type based on the specified hyper-parameters
+    :param model_eval_metrics: (dictionary) dict containing the metrics that will be used to evaluate the validation predictions
+    :return validation_eval_table: (pd.Dataframe) table with a summary of the trained models performance with the validation dataset
+    """
+
+
+    ## Saving the validation results in a variable
+    y_val = dataset_dict['y_val']
+
+    ## Metrics dictionary that will eventually be turned into a pd.DataFrame
+    res_d = {}
+
+    ## Iterating over every trained model to obtain their evaluation metrics
+    for mdl in trained_models_dict:
+
+        ## Model's alias
+        model_alias = trained_models_dict[mdl]['estimator_alias']
+
+        ## Adding model as key in the results dictionary
+        res_d[model_alias] = {}
+
+        ## Test obtaining the metrics
+        for metric in model_eval_metrics:
+
+            ## Metric short name
+            metric_alias = model_eval_metrics[metric]['alias']
+
+
+            ## Condition to determine the type of parameters to feed to the method
+
+            if model_eval_metrics[metric]['params'] == 'label/predict':
+
+                res_d[model_alias][metric_alias] = model_eval_metrics[metric]['method'](
+                    y_val['true_labels'],
+                    y_val[model_alias + '_label']
+                )
+
+            elif model_eval_metrics[metric]['params'] == 'label/proba':
+
+                res_d[model_alias][metric_alias] = model_eval_metrics[metric]['method'](
+                    y_val['true_labels'],
+                    y_val[model_alias + '_pos_prob']
+                )
+
+
+    ## Turning the metrics dictionary into a pandas dataframe
+    metrics_table = pd.DataFrame(res_d)
+
+
+    return metrics_table
 
 
 
