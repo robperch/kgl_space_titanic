@@ -10,7 +10,7 @@
 
 
 "--- Standard library imports ---"
-
+from functools import partial
 
 "--- Third party imports ---"
 from sklearn.pipeline import Pipeline
@@ -20,6 +20,7 @@ from sklearn.preprocessing import (
 )
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn import metrics
 
 "--- Local application imports ---"
 
@@ -58,7 +59,7 @@ numerical_ppl = Pipeline(
 
 
 
-"--------------- Predicting ML models ---------------"
+"--------------- Prediction ML models ---------------"
 
 predict_models_dict = {
 
@@ -95,6 +96,44 @@ predict_models_dict = {
 }
 
 predict_model_eval_metric = 'accuracy'
+
+positive_label = True
+
+
+
+"--------------- Model evaluation metrics ---------------"
+
+model_eval_metrics = {
+
+    'accuracy_score':
+        {
+            'alias': 'acc',
+            'params': 'label/predict',
+            'method': partial(metrics.accuracy_score),
+        },
+
+    'balanced_accuracy_score':
+        {
+            'alias': 'bacc',
+            'params': 'label/predict',
+            'method': partial(metrics.balanced_accuracy_score),
+        },
+
+    'average_precision_score':
+        {
+            'alias': 'avgprec',
+            'params': 'label/proba',
+            'method': partial(metrics.average_precision_score),
+        },
+
+    'f1_score':
+        {
+            'alias': 'f1',
+            'params': 'label/predict',
+            'method': partial(metrics.f1_score),
+        },
+
+}
 
 
 
