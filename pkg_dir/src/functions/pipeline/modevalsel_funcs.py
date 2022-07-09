@@ -66,10 +66,11 @@ def modevalsel_pipeline_func():
     ## Loading the trained models stored
     modtrain_res = load_trained_models()
 
-    ## Add prediction probs of every model to the validation labels
+    ## Add the trained models' predictions for the validation labels
     dataset_dict = add_validation_predictions_per_model(dataset_dict, modtrain_res)
 
     ## Generate a summary performance metrics table for every model with the validation dataset
+    metrics_table = validation_models_performance_table(dataset_dict, modtrain_res, model_eval_metrics)
 
     ## Generate performance visualizations for every model with the validation dataset
 
