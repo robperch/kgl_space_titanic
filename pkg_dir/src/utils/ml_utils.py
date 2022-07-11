@@ -461,7 +461,7 @@ def validation_models_performance_table(dataset_dict, trained_models_dict, model
     :param dataset_dict: (dictionary) dict containing all the dataset objects (e.g. train_x, train_y, test_x, test_y)
     :param trained_models_dict: (dictionary) dict containing the best trained models per type based on the specified hyper-parameters
     :param model_eval_metrics: (dictionary) dict containing the metrics that will be used to evaluate the validation predictions
-    :return validation_eval_table: (pd.Dataframe) table with a summary of the trained models performance with the validation dataset
+    :return metrics_table: (pd.Dataframe) table with a summary of the trained models performance with the validation dataset
     """
 
 
