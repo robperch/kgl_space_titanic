@@ -65,9 +65,6 @@ def save_magic_loop_results(models_magic_loop):
     upload_file_to_s3(pkl_path, base_bucket_name, object_name=obj_name)
 
 
-    ## Saving the dataset objects
-
-
     return
 
 
