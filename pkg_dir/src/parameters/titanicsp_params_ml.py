@@ -66,16 +66,16 @@ predict_models_dict = {
     'random_forest': {
         'alias': 'randf',
         'model': RandomForestClassifier(
-            max_features=10,
-            n_estimators=10,
-            max_leaf_nodes=50,
-            oob_score=True,
+            # n_estimators=100,
+            max_features='sqrt',
+            # max_leaf_nodes=100,
+            # oob_score=True,
             n_jobs=-1,
             random_state=1111
         ),
         'param_grid': {
-            'n_estimators': [5, 7],
-            'min_samples_leaf': [10],
+            'n_estimators': [50, 75, 100, 125, 150],
+            'min_samples_leaf': [1, 2, 3, 4, 5],
             'criterion': ['gini']
         },
         'class_thresh': 0.4,
@@ -87,8 +87,8 @@ predict_models_dict = {
             random_state=2222
         ),
         'param_grid': {
-            'max_depth': [10, 15],
-            'min_samples_leaf': [5]
+            # 'max_depth': [10, 15, 20, 25],
+            'min_samples_leaf': [1, 2, 3, 4, 5]
         },
         'class_thresh': 0.5,
     },
