@@ -85,8 +85,8 @@ pipeline_pkl_modtrain_name = 'modtrain'
 pipeline_pkl_modtrain_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_modtrain_name) + '/'
 
 ### Model selection pickles
-pipeline_pkl_modsel_name = 'modsel'
-pipeline_pkl_modsel_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_modsel_name) + '/'
+pipeline_pkl_modevalsel_name = 'modevalsel'
+pipeline_pkl_modevalsel_local_dir = os.path.join(pipeline_pickles_dir, pipeline_pkl_modevalsel_name) + '/'
 
 ### Bias and fairness pickles
 pipeline_pkl_bifair_name = 'bifair'
@@ -118,6 +118,7 @@ pipeline_pkl_extract_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_extrac
 pipeline_pkl_transform_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_transform_name)
 pipeline_pkl_feateng_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_feateng_name)
 pipeline_pkl_modtrain_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_modtrain_name)
+pipeline_pkl_modevalsel_aws_key = os.path.join('pipeline_pkls', pipeline_pkl_modevalsel_name)
 
 
 

@@ -26,8 +26,8 @@ from .config import (
     pipeline_pkl_feateng_local_dir,
     pipeline_pkl_modtrain_name,
     pipeline_pkl_modtrain_local_dir,
-    pipeline_pkl_modsel_name,
-    pipeline_pkl_modsel_local_dir,
+    pipeline_pkl_modevalsel_name,
+    pipeline_pkl_modevalsel_local_dir,
     pipeline_pkl_bifair_name,
     pipeline_pkl_bifair_local_dir,
     pipeline_pkl_predict_name,
@@ -40,6 +40,7 @@ from .config import (
     pipeline_pkl_transform_aws_key,
     pipeline_pkl_feateng_aws_key,
     pipeline_pkl_modtrain_aws_key,
+    pipeline_pkl_modevalsel_aws_key,
 
 )
 
