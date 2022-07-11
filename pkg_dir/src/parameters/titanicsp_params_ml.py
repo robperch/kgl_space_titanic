@@ -18,7 +18,12 @@ from sklearn.preprocessing import (
     OneHotEncoder,
     StandardScaler
 )
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import (
+
+    RandomForestClassifier,
+    GradientBoostingClassifier,
+
+)
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 
@@ -90,7 +95,20 @@ predict_models_dict = {
             # 'max_depth': [10, 15, 20, 25],
             'min_samples_leaf': [1, 2, 3, 4, 5]
         },
-        'class_thresh': 0.5,
+        'class_thresh': 0.35,
+    },
+
+    'gradient_boosting': {
+        'alias': 'xgboost',
+        'model': GradientBoostingClassifier(
+            random_state=3333,
+        ),
+        'param_grid': {
+            # 'max_depth': [10, 15, 20, 25],
+            'learning_rate': [0.05, 0.1, 0.15],
+            'n_estimators': [75, 100, 125],
+        },
+        'class_thresh': 0.4,
     },
 
 }
