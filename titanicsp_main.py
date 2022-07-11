@@ -46,10 +46,10 @@ def pipeline_main_func():
     #
     # ## Feature engineering pipeline function
     # feateng_pipeline_func()
-    #
-    # ## Models training pipeline function
-    # modtrain_pipeline_func()
-    #
+
+    ## Models training pipeline function
+    modtrain_pipeline_func()
+
     ## Models evaluation and selection pipeline function
     modevalsel_pipeline_func()
 
